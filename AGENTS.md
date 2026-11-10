@@ -40,6 +40,7 @@ Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam deği�
 - Arayüzde Bootstrap kullanılacaktır. Bootstrap dosyalarını proje içinde yerel olarak tut; sayfalarda CDN bağlantısı kullanma.
 - Projeye ait CSS ve JavaScript ayrı dosyalarda tutulmalıdır. HTML içine inline stil veya JavaScript yazma.
 - Veritabanı bağlantı bilgilerini yerel yapılandırmada tut; örnek yapılandırmalarda gerçek kimlik bilgileri kullanma.
+- HTML iç içe bloklarını belirgin girintilerle yaz; CSS kurallarında her özelliği ayrı satırda tut. Ana bölümleri kısa açıklamalar ve boş satırlarla ayır.
 - Projede bir yapı oluştuktan sonra mevcut düzeni ve isimlendirme biçimini takip et.
 - Özellik eklerken ilgili rolün erişim sınırlarını sunucu tarafında uygula; yalnızca arayüzde düğme gizlemeye güvenme.
 - Parolaları güvenli biçimde hashleyerek sakla, veritabanı sorgularında parametreli sorgular kullan ve form işlemlerinde CSRF koruması uygula.

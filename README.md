@@ -4,7 +4,7 @@ Web Programlama dersi kapsamında geliştirilen, kargo süreçlerinin yönetilme
 
 ## Proje durumu
 
-Proje başlangıç aşamasındadır. Proje yönergeleri ve yerel Bootstrap dosyaları hazırlanmıştır. Henüz çalışan uygulama, veritabanı şeması veya giriş sistemi bulunmamaktadır.
+Proje başlangıç aşamasındadır. Yerel Bootstrap kullanan, mobil uyumlu bir ana sayfa taslağı hazırlanmıştır. Bu taslak ekip değerlendirmesi için bir başlangıçtır. Veritabanı şeması, giriş sistemi ve kargo işlemleri henüz geliştirilmemiştir.
 
 ## Planlanan özellikler
 
@@ -23,16 +23,23 @@ Proje başlangıç aşamasındadır. Proje yönergeleri ve yerel Bootstrap dosya
 ## Dosya yapısı
 
 ```text
+index.php             # Ana sayfa taslağı
 assets/
-└── vendor/
-    └── bootstrap/    # Bootstrap CSS, JavaScript ve lisans dosyaları
+├── css/style.css     # Projeye ait stiller
+└── vendor/bootstrap/ # Yerel Bootstrap dosyaları ve lisansı
 AGENTS.md             # Geliştirme yönergeleri
 README.md             # Proje açıklaması
 ```
 
 ## Kurulum
 
-Uygulama iskeleti ve veritabanı şeması oluşturulduğunda PHP/MySQL gereksinimleri, yapılandırma ve çalıştırma adımları bu bölüme eklenecektir.
+PHP kuruluysa proje dizininde şu komutla yerel geliştirme sunucusu başlatılabilir:
+
+```bash
+php -S localhost:8000
+```
+
+Tarayıcıda `http://localhost:8000` adresini açın. Mevcut ana sayfa veritabanı gerektirmez. MySQL yapılandırması ve şema kurulum adımları ilgili özellikler geliştirildiğinde eklenecektir.
 
 ## Üçüncü taraf yazılımlar
 
