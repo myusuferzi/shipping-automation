@@ -2,9 +2,9 @@
 
 ## Amaç ve kaynaklar
 
-Bu dizinde Web Programlama dersi için **Kargo Takip ve Yönetim Otomasyonu** geliştirilecektir.
+Bu dizinde **Kargo Takip ve Yönetim Otomasyonu** geliştirilecektir.
 
-Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam değişikliklerinde dersin zorunlu şartlarını koru.
+Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam değişikliklerinde zorunlu gereksinimleri koru.
 
 ## Zorunlu gereksinimler
 
@@ -35,7 +35,8 @@ Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam deği�
 
 ## Çalışma yaklaşımı
 
-- Bu bir ders projesidir. Kodu okunabilir, açıklanabilir ve gereksinimlerle orantılı tut.
+- Kodu okunabilir, açıklanabilir ve gereksinimlerle orantılı tut.
+- Arayüz ve dokümantasyonda uygulamanın işlevlerini anlat.
 - Düz PHP ve MySQL kullanılacaktır. Laravel veya başka bir PHP çatısı ekleme.
 - Arayüzde Bootstrap kullanılacaktır. Bootstrap dosyalarını proje içinde yerel olarak tut; sayfalarda CDN bağlantısı kullanma.
 - Projeye ait CSS ve JavaScript ayrı dosyalarda tutulmalıdır. HTML içine inline stil veya JavaScript yazma.

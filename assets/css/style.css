@@ -6,6 +6,9 @@
 
 /* Genel görünüm */
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     color: var(--ink);
     background: #fff;
 }
@@ -16,6 +19,37 @@ html {
 
 a {
     text-underline-offset: 4px;
+}
+
+main {
+    flex: 1;
+}
+
+/* Sayfa bulunamadı */
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 64px;
+    padding-bottom: 64px;
+    text-align: center;
+}
+
+.error-content {
+    max-width: 460px;
+}
+
+.error-code {
+    margin-bottom: 12px;
+    color: var(--brand);
+    font-size: clamp(5rem, 15vw, 8rem);
+    font-weight: 700;
+    line-height: 1;
+}
+
+.error-page h1 {
+    font-size: 2rem;
+    letter-spacing: -.025em;
 }
 
 /* Üst menü */
@@ -193,7 +227,7 @@ h2 {
     line-height: 1.7;
 }
 
-/* Proje hakkında */
+/* Hakkında */
 .about-panel {
     display: flex;
     align-items: center;
@@ -206,23 +240,6 @@ h2 {
 
 .about-panel .eyebrow {
     margin-bottom: 12px;
-}
-
-.development-note {
-    flex-shrink: 0;
-    padding-left: 24px;
-    border-left: 2px solid #becfc1;
-    font-size: .9rem;
-    font-weight: 600;
-}
-
-.development-note span {
-    display: inline-block;
-    max-width: 210px;
-    margin-top: 6px;
-    color: #66736b;
-    font-size: .85rem;
-    font-weight: 400;
 }
 
 /* Mobil görünüm */
