@@ -1,0 +1,20 @@
+# Yerel yapılandırma ve gizli bilgiler
+.env
+.env.*
+!.env.example
+config/database.local.php
+
+# Editör ve işletim sistemi dosyaları
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Yerel araç ayarları
+.codex/
+.agents/
+.aws/
+
+# Geçici dosyalar ve günlükler
+/tmp/
+*.log
