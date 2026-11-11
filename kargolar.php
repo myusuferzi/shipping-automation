@@ -3,6 +3,22 @@ require_once __DIR__ . '/includes/app.php';
 $kullanici = girisGerekli();
 $kargolar = kargolariGor($kullanici);
 $siralama = ($_GET['sirala'] ?? '') === 'azalan' ? 'azalan' : 'artan';
+$arama = isset($_GET['arama']) && is_string($_GET['arama']) ? trim($_GET['arama']) : '';
+$durumFiltresi = isset($_GET['durum']) && is_string($_GET['durum']) ? $_GET['durum'] : '';
+if (!in_array($durumFiltresi, kargoDurumlari(), true)) {
+    $durumFiltresi = '';
+}
+
+// Önce erişim kontrolü yapılır; yalnızca kullanıcının görebildiği kayıtlar aranır.
+$kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, $durumFiltresi) {
+    $aramaUyuyor = $arama === ''
+        || stripos($kargo['takip_no'], $arama) !== false
+        || stripos($kargo['alici_adi'], $arama) !== false;
+    $durumUyuyor = $durumFiltresi === '' || $kargo['durum'] === $durumFiltresi;
+
+    return $aramaUyuyor && $durumUyuyor;
+}));
+
 
 usort($kargolar, function ($a, $b) use ($siralama) {
     $sonuc = strcmp($a['teslimat_tarihi'], $b['teslimat_tarihi']);
@@ -39,20 +55,44 @@ require __DIR__ . '/includes/header.php';
                 <span class="badge rounded-pill bg-white text-success-emphasis border border-success-subtle ms-2"><?= count($kargolar) ?> kayıt</span>
             </p>
 
-            <form class="d-flex flex-wrap align-items-center gap-2" method="get">
-                <label class="small text-secondary" for="sirala">Teslimat tarihi</label>
-                <select class="form-select form-select-sm w-auto" id="sirala" name="sirala">
+        </div>
+
+        <form class="row g-3 m-0 p-3 border-bottom align-items-end" action="/kargolar.php" method="get">
+            <div class="col-md-4">
+                <label class="form-label small" for="arama">Takip numarası veya alıcı</label>
+                <input class="form-control form-control-sm" type="search" id="arama" name="arama" value="<?= e($arama) ?>" placeholder="Kargo ara">
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label class="form-label small" for="durum">Durum</label>
+                <select class="form-select form-select-sm" id="durum" name="durum">
+                    <option value="">Tüm durumlar</option>
+                    <?php foreach (kargoDurumlari() as $durum): ?>
+                        <option <?= $durumFiltresi === $durum ? 'selected' : '' ?>><?= e($durum) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <label class="form-label small" for="sirala">Teslimat tarihi</label>
+                <select class="form-select form-select-sm" id="sirala" name="sirala">
                     <option value="artan" <?= $siralama === 'artan' ? 'selected' : '' ?>>En yakın önce</option>
                     <option value="azalan" <?= $siralama === 'azalan' ? 'selected' : '' ?>>En uzak önce</option>
                 </select>
-                <button class="btn btn-sm btn-outline-secondary" type="submit">Sırala</button>
-            </form>
-        </div>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button class="btn btn-sm btn-primary" type="submit">Uygula</button>
+                <a class="btn btn-sm btn-outline-secondary" href="/kargolar.php">Temizle</a>
+            </div>
+        </form>
 
         <?php if (!$kargolar): ?>
             <div class="text-center p-5">
-                <h2 class="h5">Henüz kargo yok</h2>
-                <p class="text-secondary mb-0">Görüntüleyebileceğiniz gönderiler burada listelenecek.</p>
+                <?php if ($arama !== '' || $durumFiltresi !== ''): ?>
+                    <h2 class="h5">Aramanıza uygun kargo bulunamadı</h2>
+                    <p class="text-secondary mb-0">Farklı bir arama deneyin veya filtreleri temizleyin.</p>
+                <?php else: ?>
+                    <h2 class="h5">Henüz kargo yok</h2>
+                    <p class="text-secondary mb-0">Görüntüleyebileceğiniz gönderiler burada listelenecek.</p>
+                <?php endif; ?>
             </div>
         <?php else: ?>
             <div class="table-responsive">
