@@ -41,7 +41,7 @@ require __DIR__ . '/includes/header.php';
             <p class="alert alert-danger" role="alert"><?= e($hata) ?></p>
         <?php endif; ?>
 
-        <form action="/register.php" method="post">
+        <form action="/register.php" method="post" data-sifre-kontrolu>
             <input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>">
             <div class="mb-3">
                 <label class="form-label" for="ad-soyad">Ad soyad</label>
@@ -55,13 +55,21 @@ require __DIR__ . '/includes/header.php';
 
             <div class="mb-3">
                 <label class="form-label" for="sifre">Şifre</label>
-                <input class="form-control" type="password" id="sifre" name="sifre" autocomplete="new-password" minlength="8" aria-describedby="sifre-notu" required>
+                <div class="input-group">
+                    <input class="form-control" type="password" id="sifre" name="sifre" autocomplete="new-password" minlength="8" aria-describedby="sifre-notu" required>
+                    <button class="btn btn-outline-secondary" type="button"
+                        data-sifre-goster="sifre" aria-controls="sifre" hidden>Göster</button>
+                </div>
                 <p class="form-text" id="sifre-notu">En az 8 karakter kullanın.</p>
             </div>
 
             <div class="mb-4">
                 <label class="form-label" for="sifre-tekrar">Şifre tekrar</label>
-                <input class="form-control" type="password" id="sifre-tekrar" name="sifre_tekrar" autocomplete="new-password" minlength="8" required>
+                <div class="input-group">
+                    <input class="form-control" type="password" id="sifre-tekrar" name="sifre_tekrar" autocomplete="new-password" minlength="8" required>
+                    <button class="btn btn-outline-secondary" type="button"
+                        data-sifre-goster="sifre-tekrar" aria-controls="sifre-tekrar" hidden>Göster</button>
+                </div>
             </div>
 
             <button class="btn btn-primary w-100" type="submit">Kayıt ol</button>

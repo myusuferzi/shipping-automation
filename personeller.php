@@ -60,7 +60,8 @@ require __DIR__ . '/includes/header.php';
                         <td>
                             <div class="d-flex flex-wrap gap-2">
                                 <a class="btn btn-sm btn-outline-success" href="/personel-duzenle.php?id=<?= e($personel['id']) ?>">Düzenle</a>
-                                <form method="post" action="/personeller.php">
+                                <form method="post" action="/personeller.php"
+                                    data-onay="Personelin hesap durumunu değiştirmek istediğinize emin misiniz?">
                                     <input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>">
                                     <input type="hidden" name="islem" value="aktiflik">
                                     <input type="hidden" name="id" value="<?= e($personel['id']) ?>">
@@ -92,7 +93,11 @@ require __DIR__ . '/includes/header.php';
                 </div>
                 <div class="col-md-4">
                     <label class="form-label" for="sifre">Başlangıç şifresi</label>
-                    <input class="form-control" type="password" id="sifre" name="sifre" minlength="8" autocomplete="new-password" required>
+                    <div class="input-group">
+                        <input class="form-control" type="password" id="sifre" name="sifre" minlength="8" autocomplete="new-password" required>
+                        <button class="btn btn-outline-secondary" type="button"
+                            data-sifre-goster="sifre" aria-controls="sifre" hidden>Göster</button>
+                    </div>
                 </div>
             </div>
             <button class="btn btn-primary mt-3" type="submit">Personel oluştur</button>

@@ -11,6 +11,14 @@ Bu liste tarayıcıda ve MySQL entegrasyonundan sonra kontrol etmek içindir; ta
 - Aynı e-postayla tekrar kayıt oluşturulamadığını kontrol edin.
 - Çıkıştan sonra korunan bir sayfayı yeniden açın; giriş sayfasına yönlenmeli.
 
+## JavaScript ile form yardımları
+
+- Giriş/kayıt ve personel formlarında Göster/Gizle butonlarını deneyin. Alanların değerleri ve form gönderim davranışı değişmemeli.
+- Kayıt ve personel düzenlemede farklı şifreler yazın; tarayıcı gönderimi engellemeli. Her iki alanı da ayrı ayrı değiştirerek eşleştirin; hata temizlenmeli.
+- Personel düzenlerken iki şifreyi boş bırakın; mevcut şifre korunmalı.
+- Personel aktifliğini değiştirirken onayı iptal edin; hesap değişmemeli. Kabul edince normal işlem yapılmalı.
+- JavaScript'i kapatarak formları tekrar deneyin. Göster/Gizle butonları görünmemeli; PHP hatalı şifre tekrarını ve yetkisiz işlemleri engellemeye devam etmeli.
+
 ## Kargo akışı
 
 1. Yöneticiyle yeni bir müşteri kargosu oluşturup personele atayın.

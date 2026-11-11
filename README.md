@@ -56,6 +56,7 @@ includes/
 └── erisim-engeli.php # Yetki ve form doğrulama hatalarının ortak ekranı
 assets/
 ├── css/style.css     # Projeye ait stiller
+├── js/app.js         # Şifre alanları ve işlem onayı
 └── vendor/bootstrap/ # Yerel Bootstrap dosyaları ve lisansı
 AGENTS.md             # Geliştirme yönergeleri
 README.md             # Proje açıklaması

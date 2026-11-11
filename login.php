@@ -46,7 +46,11 @@ require __DIR__ . '/includes/header.php';
 
             <div class="mb-4">
                 <label class="form-label" for="sifre">Şifre</label>
-                <input class="form-control" type="password" id="sifre" name="sifre" autocomplete="current-password" required>
+                <div class="input-group">
+                    <input class="form-control" type="password" id="sifre" name="sifre" autocomplete="current-password" required>
+                    <button class="btn btn-outline-secondary" type="button"
+                        data-sifre-goster="sifre" aria-controls="sifre" hidden>Göster</button>
+                </div>
             </div>
 
             <button class="btn btn-primary w-100" type="submit">Giriş yap</button>
