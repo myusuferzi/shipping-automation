@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $sayfaBasligi = 'Kargo düzenle';
+$aktifSayfa = 'kargolar';
 require __DIR__ . '/includes/header.php';
 ?>
 

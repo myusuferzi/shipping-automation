@@ -58,11 +58,13 @@ unset($_SESSION['bildirim']);
                             </li>
                             <?php if ($oturumKullanicisi && $oturumKullanicisi['aktif']): ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/kargolar.php">Kargolar</a>
+                                    <a class="nav-link <?= $aktifSayfa === 'kargolar' ? 'active fw-semibold' : '' ?>" href="/kargolar.php">
+                                        <?= $oturumKullanicisi['rol'] === 'musteri' ? 'Kargolarım' : 'Kargolar' ?>
+                                    </a>
                                 </li>
                                 <?php if ($oturumKullanicisi['rol'] === 'yonetici'): ?>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/personeller.php">Personeller</a>
+                                        <a class="nav-link <?= $aktifSayfa === 'personeller' ? 'active fw-semibold' : '' ?>" href="/personeller.php">Personeller</a>
                                     </li>
                                 <?php endif; ?>
                                 <li class="nav-item">
@@ -73,10 +75,12 @@ unset($_SESSION['bildirim']);
                                 </li>
                             <?php else: ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/login.php">Giriş yap</a>
+                                    <a class="nav-link <?= $aktifSayfa === 'login' ? 'active' : '' ?>"
+                                        <?= $aktifSayfa === 'login' ? 'aria-current="page"' : '' ?> href="/login.php">Giriş yap</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/register.php">Kayıt ol</a>
+                                    <a class="nav-link <?= $aktifSayfa === 'register' ? 'active' : '' ?>"
+                                        <?= $aktifSayfa === 'register' ? 'aria-current="page"' : '' ?> href="/register.php">Kayıt ol</a>
                                 </li>
                             <?php endif; ?>
                         </ul>

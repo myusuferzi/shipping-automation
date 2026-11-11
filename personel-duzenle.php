@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $sayfaBasligi = 'Personel düzenle';
+$aktifSayfa = 'personeller';
 require __DIR__ . '/includes/header.php';
 ?>
 

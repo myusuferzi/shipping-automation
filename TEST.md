@@ -1,0 +1,50 @@
+# Elle kontrol adımları
+
+Bu liste tarayıcıda ve MySQL entegrasyonundan sonra kontrol etmek içindir; tamamlandığı varsayılmaz. Yerel sunucu: `php -S localhost:8000 router.php`.
+
+Örnek hesaplar ve ortak şifre README'dedir. Aynı tarayıcıda çıkış yapıp diğer hesapla girerek aynı örnek kayıtlar üzerinde işlem yapabilirsiniz. Başka tarayıcı yeni bir örnek veri kümesi oluşturur.
+
+## Hesaplar
+
+- Hatalı şifreyle giriş yapmayı deneyin; oturum açılmamalı.
+- Müşteri kaydı oluşturun. Şifre tekrarını farklı girince hata çıkmalı; doğru girince boş kargo listesi açılmalı.
+- Aynı e-postayla tekrar kayıt oluşturulamadığını kontrol edin.
+- Çıkıştan sonra korunan bir sayfayı yeniden açın; giriş sayfasına yönlenmeli.
+
+## Kargo akışı
+
+1. Yöneticiyle yeni bir müşteri kargosu oluşturup personele atayın.
+2. Detayda takip numarasını, adresleri ve ilk hareketi kontrol edin.
+3. Gönderi bilgilerini düzenleyin. Hatalı tarihte bilgiler kaydedilmemeli, formdaki girişler korunmalı.
+4. Personel hesabına geçin. Atanan kargo listede görünmeli; durum ve konumu güncellenebilmeli.
+5. Müşteri hesabına geçin. Güncel durum, konum ve hareket geçmişi görünmeli; düzenleme formu görünmemeli.
+6. Yöneticiyle kargonun müşteri hesabını değiştirin. Eski müşteri artık detayı açamamalı; yeni müşteri görebilmeli.
+7. Arama, durum filtresi ve sıralamayı birlikte deneyin. Erişim dışındaki kargolar sonuçlara girmemeli.
+
+## Personel yönetimi
+
+- Yönetici yeni personel oluşturabilmeli, ad/e-posta düzenleyebilmeli.
+- Şifre alanını boş bırakarak düzenleyin; eski şifre çalışmaya devam etmeli.
+- Yeni şifre belirleyin; eski şifreyle giriş reddedilmeli.
+- Devam eden kargosu olan personel pasife alınamamalı. Kargoları başka personele atayıp tekrar deneyin.
+- Pasif personel giriş yapamamalı ve yeni kargoya atanamamalı.
+
+## Yetki ve hata ekranları
+
+- Müşteri veya personelle `/personeller.php` ve `/kargo-duzenle.php?id=1` adresini açın: 403 ekranı çıkmalı.
+- Müşteriyle başka müşterinin kargo detayını açın: 404 ekranı çıkmalı.
+- Var olmayan bir adresi ve iç içe bir adresi açın: 404 ekranının CSS'i ve ana sayfa bağlantısı çalışmalı.
+- Eski bir formu çıkış/giriş yaptıktan sonra gönderin: CSRF kontrolü işlemi reddetmeli.
+
+## Görünüm ve klavye
+
+- Dar ekranda menü açılmalı; formlar taşmamalı, geniş tablolar kendi içinde kaydırılmalı.
+- Tab tuşuyla menüye, form alanlarına ve butonlara erişilebilmeli.
+- Kargo detayındaki bar kayıtlı duruma kadar bir kez dolmalı; ana sayfadaki örnek sabit kalmalı.
+- Hareket azaltma tercihi açıkken kart animasyonu oynamamalı.
+
+## MySQL geçişinden sonra
+
+- Aynı akışı farklı iki tarayıcıdan deneyin; kayıtların ortak ve kalıcı olduğunu doğrulayın.
+- Aynı e-postayla eşzamanlı kayıt denemesinde tek hesap oluşmalı.
+- Kargo güncellemesi başarısız olursa hareket kaydı da eklenmemeli (transaction).

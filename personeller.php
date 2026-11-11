@@ -31,6 +31,7 @@ $personeller = array_filter(kullanicilariGetir(), function ($hesap) {
     return $hesap['rol'] === 'personel';
 });
 $sayfaBasligi = 'Personeller';
+$aktifSayfa = 'personeller';
 require __DIR__ . '/includes/header.php';
 ?>
 

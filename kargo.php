@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $sayfaBasligi = $kargo['takip_no'];
 $hareketler = kargoHareketleriGetir($id);
 $atananPersonel = kullaniciGetir($kargo['personel_id'] ?? 0);
+$aktifSayfa = 'kargolar';
 require __DIR__ . '/includes/header.php';
 ?>
 

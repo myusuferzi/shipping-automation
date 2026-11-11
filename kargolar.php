@@ -34,6 +34,7 @@ $durumRenkleri = [
 ];
 
 $sayfaBasligi = $kullanici['rol'] === 'musteri' ? 'Kargolarım' : 'Kargolar';
+$aktifSayfa = 'kargolar';
 require __DIR__ . '/includes/header.php';
 ?>
 

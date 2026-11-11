@@ -14,7 +14,7 @@ Müşteri, personel ve yönetici ekranları session'da tutulan örnek verilerle 
 | Personel | `personel@example.test` |
 | Müşteri | `musteri@example.test` |
 
-MySQL iş bölümü ve fonksiyonlar: [Veri bağlantısı](VERI-BAGLANTISI.md). İlerleme: [PLAN.md](PLAN.md).
+MySQL iş bölümü ve fonksiyonlar: [Veri bağlantısı](VERI-BAGLANTISI.md). İlerleme: [PLAN.md](PLAN.md). Tarayıcıda kontrol adımları: [TEST.md](TEST.md).
 
 ## Özellikler
 

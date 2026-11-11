@@ -26,9 +26,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'konum' => postMetni('konum'),
     ];
 
-    foreach (['gonderici_adi', 'gonderici_adres', 'alici_adi', 'alici_adres', 'konum'] as $alan) {
-        if ($bilgiler[$alan] === '' || strlen($bilgiler[$alan]) > 500) {
-            $hata = 'Tüm metin alanlarını doldurun; her alan en fazla 500 bayt olabilir.';
+    $alanSinirlari = [
+        'gonderici_adi' => 120,
+        'alici_adi' => 120,
+        'gonderici_adres' => 500,
+        'alici_adres' => 500,
+        'konum' => 200,
+    ];
+    foreach ($alanSinirlari as $alan => $sinir) {
+        if ($bilgiler[$alan] === '' || strlen($bilgiler[$alan]) > $sinir) {
+            $hata = 'Alanları kontrol edin: adlar 120, adresler 500, konum 200 baytı aşmamalıdır.';
         }
     }
 
@@ -64,6 +71,7 @@ $formBilgileri = [
     'teslimat_tarihi' => postMetni('teslimat_tarihi'),
 ];
 $sayfaBasligi = 'Yeni kargo';
+$aktifSayfa = 'kargolar';
 require __DIR__ . '/includes/header.php';
 ?>
 

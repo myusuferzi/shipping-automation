@@ -13,6 +13,7 @@
 - [x] Yetkisiz erişim ve geçersiz form gönderimleri için ortak 403 ekranı.
 - [x] Yöneticinin personel bilgilerini düzenlemesi ve isteğe bağlı şifre yenilemesi.
 - [x] Yöneticinin gönderici/alıcı, müşteri hesabı ve teslimat tarihini düzenlemesi.
+- [x] Menüde aktif bölüm vurgusu ve kargo oluşturma alan sınırlarının kontrolü.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
 - [ ] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.

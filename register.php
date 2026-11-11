@@ -45,7 +45,7 @@ require __DIR__ . '/includes/header.php';
             <input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>">
             <div class="mb-3">
                 <label class="form-label" for="ad-soyad">Ad soyad</label>
-                <input class="form-control" type="text" id="ad-soyad" name="ad_soyad" value="<?= e($ad) ?>" autocomplete="name" required>
+                <input class="form-control" type="text" id="ad-soyad" name="ad_soyad" value="<?= e($ad) ?>" autocomplete="name" maxlength="120" required>
             </div>
 
             <div class="mb-3">
