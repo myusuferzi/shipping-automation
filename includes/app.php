@@ -39,6 +39,14 @@ function mevcutKullanici()
     return kullaniciGetir($_SESSION['kullanici_id'] ?? 0);
 }
 
+// Hem rol kontrolü hem de geçersiz form gönderimi aynı ekranı kullanır.
+function erisimEngelle($mesaj)
+{
+    http_response_code(403);
+    require __DIR__ . '/erisim-engeli.php';
+    exit;
+}
+
 function girisGerekli($roller = [])
 {
     $kullanici = mevcutKullanici();
@@ -49,12 +57,7 @@ function girisGerekli($roller = [])
     }
 
     if ($roller && !in_array($kullanici['rol'], $roller, true)) {
-        http_response_code(403);
-        $sayfaBasligi = 'Erişim izni yok';
-        require __DIR__ . '/header.php';
-        echo '<main id="icerik" class="container py-5"><h1 class="h2">Erişim izni yok</h1><p>Bu işlem için yetkiniz bulunmuyor.</p></main>';
-        require __DIR__ . '/footer.php';
-        exit;
+        erisimEngelle('Bu sayfayı görüntülemek veya işlemi yapmak için yetkiniz bulunmuyor.');
     }
 
     return $kullanici;
@@ -72,8 +75,7 @@ function csrfToken()
 function csrfKontrol()
 {
     if (!hash_equals(csrfToken(), postMetni('csrf'))) {
-        http_response_code(403);
-        exit('Formun süresi dolmuş olabilir. Sayfayı yenileyip tekrar deneyin.');
+        erisimEngelle('Form doğrulanamadı veya oturumun süresi dolmuş olabilir. İlgili sayfayı yeniden açıp formu tekrar gönderin.');
     }
 }
 

@@ -50,7 +50,8 @@ includes/
 ├── app.php           # Session, CSRF ve yetki yardımcıları
 ├── header.php        # Ortak HTML başlangıcı, CSS ve menü
 ├── footer.php        # Ortak alt bilgi, JavaScript ve kapanışlar
-└── gonderi-karti.php # Ana sayfa ve detayın ortak gönderi kartı
+├── gonderi-karti.php # Ana sayfa ve detayın ortak gönderi kartı
+└── erisim-engeli.php # Yetki ve form doğrulama hatalarının ortak ekranı
 assets/
 ├── css/style.css     # Projeye ait stiller
 └── vendor/bootstrap/ # Yerel Bootstrap dosyaları ve lisansı

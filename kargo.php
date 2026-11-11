@@ -31,8 +31,7 @@ $personeller = array_filter(kullanicilariGetir(), function ($hesap) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrfKontrol();
     if (!$duzenleyebilir) {
-        http_response_code(403);
-        exit('Bu işlem için yetkiniz bulunmuyor.');
+        erisimEngelle('Kargo bilgilerini değiştirmek için yetkiniz bulunmuyor.');
     }
 
     $durum = postMetni('durum');
