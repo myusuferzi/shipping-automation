@@ -127,6 +127,25 @@ function kargoGuncelle($id, $durum, $konum, $personelId, $aciklama, $kullaniciId
     hareketEkle($id, $durum, $konum, $aciklama, $kullaniciId);
 }
 
+function kargoBilgileriniGuncelle($id, $bilgiler, $kullaniciId)
+{
+    $kargo = kargoGetir($id);
+    if (!$kargo) {
+        throw new RuntimeException('Kargo bulunamadı.');
+    }
+
+    // Takip numarası, durum, konum ve personel bu işlemde değiştirilmez.
+    $alanlar = [
+        'musteri_id', 'gonderici_adi', 'gonderici_adres',
+        'alici_adi', 'alici_adres', 'teslimat_tarihi',
+    ];
+    foreach ($alanlar as $alan) {
+        $_SESSION['veriler']['kargolar'][$id][$alan] = $bilgiler[$alan];
+    }
+
+    hareketEkle($id, $kargo['durum'], $kargo['konum'], 'Gönderi bilgileri düzenlendi.', $kullaniciId);
+}
+
 function kargoHareketleriGetir($id)
 {
     return array_reverse($_SESSION['veriler']['hareketler'][$id] ?? []);

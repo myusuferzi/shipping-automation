@@ -39,6 +39,7 @@ data/
 kargolar.php          # Role göre kargo listesi
 kargo.php             # Detay, hareket geçmişi ve güncelleme
 kargo-ekle.php        # Yönetici kargo oluşturma
+kargo-duzenle.php     # Yönetici gönderi bilgilerini düzenleme
 personeller.php       # Yönetici personel yönetimi
 personel-duzenle.php  # Personel bilgisi ve isteğe bağlı şifre güncelleme
 logout.php            # POST ile çıkış

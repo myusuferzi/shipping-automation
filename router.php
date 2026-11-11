@@ -24,6 +24,7 @@ $sayfalar = [
     '/kargolar.php' => 'kargolar.php',
     '/kargo.php' => 'kargo.php',
     '/kargo-ekle.php' => 'kargo-ekle.php',
+    '/kargo-duzenle.php' => 'kargo-duzenle.php',
     '/personeller.php' => 'personeller.php',
     '/personel-duzenle.php' => 'personel-duzenle.php',
 ];

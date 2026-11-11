@@ -30,6 +30,7 @@ Sayfalar, oturum ve yetki kontrolleri hazır PHP fonksiyonlarını kullanır. My
 | `kargoGetir($id)` | Kargo dizisi veya `null`. |
 | `kargoEkle($bilgiler, $islemiYapan)` | Yeni kargo ID'si; benzersiz takip numarası ve ilk hareketi oluşturur. |
 | `kargoGuncelle($id, $durum, $konum, $personelId, $aciklama, $kullaniciId)` | Durumu, konumu ve personeli değiştirir; hareket ekler. |
+| `kargoBilgileriniGuncelle($id, $bilgiler, $kullaniciId)` | Müşteri hesabı, gönderici/alıcı adı ve adresleri, teslimat tarihini günceller. Takip numarası, durum, konum ve personel korunur. Güncelleme ve hareket ekleme aynı transaction içinde uygulanır. |
 | `hareketEkle($id, $durum, $konum, $aciklama, $kullaniciId)` | Kargo hareketi ekler. |
 | `kargoHareketleriGetir($id)` | En yeni hareket önce olacak şekilde liste. |
 
@@ -51,6 +52,8 @@ PDO'dan dönen ID'leri int, `aktif` alanını bool yapın. Sayfalarda türü de 
 - `login.php`, `register.php`, `logout.php`: Kimlik doğrulama akışı; kayıt rolü sunucuda müşteri olarak belirlenir.
 - `kargolar.php`: Role göre liste ve teslimat tarihine göre sıralama.
 - `kargo.php`: Erişim kontrolü, detay, hareketler, yönetici/personel güncellemesi. Personel atamayı yalnızca yönetici yapar.
-- `kargo-ekle.php`, `personeller.php`, `personel-duzenle.php`: Yalnızca yönetici işlemleri.
+- `kargo-ekle.php`, `kargo-duzenle.php`, `personeller.php`, `personel-duzenle.php`: Yalnızca yönetici işlemleri.
 
 Mevcut yaklaşım küçük veri için tüm kargoları getirip PHP'de filtreler. Büyük veri için kullanıcıya göre sorgulama ve sayfalama daha sonra ayrıca ele alınabilir. Yetki kontrollerini MySQL geçişinde kaldırmayın.
+
+Kargo oluşturma ve düzenleme sayfaları `includes/kargo-alanlari.php` içindeki ortak alanları kullanır. Yönetici müşteri hesabını değiştirdiğinde eski müşteri erişimini kaybeder; yeni müşteri kargoyu görebilir.

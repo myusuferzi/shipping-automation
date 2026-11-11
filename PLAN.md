@@ -12,6 +12,7 @@
 - [x] Kargo listesinde takip numarası/alıcı araması ve durum filtresi.
 - [x] Yetkisiz erişim ve geçersiz form gönderimleri için ortak 403 ekranı.
 - [x] Yöneticinin personel bilgilerini düzenlemesi ve isteğe bağlı şifre yenilemesi.
+- [x] Yöneticinin gönderici/alıcı, müşteri hesabı ve teslimat tarihini düzenlemesi.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
 - [ ] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.
