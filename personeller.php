@@ -57,14 +57,17 @@ require __DIR__ . '/includes/header.php';
                         <td><?= e($personel['eposta']) ?></td>
                         <td><?= $personel['aktif'] ? 'Aktif' : 'Pasif' ?></td>
                         <td>
-                            <form method="post" action="/personeller.php">
-                                <input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>">
-                                <input type="hidden" name="islem" value="aktiflik">
-                                <input type="hidden" name="id" value="<?= e($personel['id']) ?>">
-                                <button class="btn btn-sm btn-outline-secondary" type="submit">
-                                    <?= $personel['aktif'] ? 'Pasife al' : 'Aktifleştir' ?>
-                                </button>
-                            </form>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a class="btn btn-sm btn-outline-success" href="/personel-duzenle.php?id=<?= e($personel['id']) ?>">Düzenle</a>
+                                <form method="post" action="/personeller.php">
+                                    <input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>">
+                                    <input type="hidden" name="islem" value="aktiflik">
+                                    <input type="hidden" name="id" value="<?= e($personel['id']) ?>">
+                                    <button class="btn btn-sm btn-outline-secondary" type="submit">
+                                        <?= $personel['aktif'] ? 'Pasife al' : 'Aktifleştir' ?>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -24,6 +24,7 @@ Sayfalar, oturum ve yetki kontrolleri hazır PHP fonksiyonlarını kullanır. My
 | `kullaniciGetir($id)` | Kullanıcı dizisi veya `null`. |
 | `epostaIleKullaniciGetir($eposta)` | Büyük/küçük harften bağımsız kullanıcı veya `null`. |
 | `kullaniciEkle($ad, $eposta, $sifreHash, $rol)` | Yeni kullanıcı ID'si. Şifre zaten hashlenmiş gelir. Yinelenen e-postada hata. |
+| `personelGuncelle($id, $ad, $eposta, $sifreHash = null)` | Yalnızca personelin adını/e-postasını değiştirir. Hash null ise mevcut şifreyi korur. Rol ve aktiflik değişmez. Başkasına ait e-postada hata; tüm değişiklikler birlikte uygulanır. |
 | `personelAktifliginiDegistir($id)` | Personeli aktif/pasif yapar. Teslim edilmemiş kargosu varsa pasife almayı reddeder. |
 | `kargolariGetir()` | Tüm kargoların listesi. |
 | `kargoGetir($id)` | Kargo dizisi veya `null`. |
@@ -50,6 +51,6 @@ PDO'dan dönen ID'leri int, `aktif` alanını bool yapın. Sayfalarda türü de 
 - `login.php`, `register.php`, `logout.php`: Kimlik doğrulama akışı; kayıt rolü sunucuda müşteri olarak belirlenir.
 - `kargolar.php`: Role göre liste ve teslimat tarihine göre sıralama.
 - `kargo.php`: Erişim kontrolü, detay, hareketler, yönetici/personel güncellemesi. Personel atamayı yalnızca yönetici yapar.
-- `kargo-ekle.php`, `personeller.php`: Yalnızca yönetici işlemleri.
+- `kargo-ekle.php`, `personeller.php`, `personel-duzenle.php`: Yalnızca yönetici işlemleri.
 
 Mevcut yaklaşım küçük veri için tüm kargoları getirip PHP'de filtreler. Büyük veri için kullanıcıya göre sorgulama ve sayfalama daha sonra ayrıca ele alınabilir. Yetki kontrollerini MySQL geçişinde kaldırmayın.

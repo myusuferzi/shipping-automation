@@ -47,6 +47,25 @@ function kullaniciEkle($ad, $eposta, $sifreHash, $rol)
     return $id;
 }
 
+function personelGuncelle($id, $ad, $eposta, $sifreHash = null)
+{
+    $personel = kullaniciGetir($id);
+    if (!$personel || $personel['rol'] !== 'personel') {
+        throw new RuntimeException('Personel bulunamadı.');
+    }
+
+    $digerHesap = epostaIleKullaniciGetir($eposta);
+    if ($digerHesap && $digerHesap['id'] !== $id) {
+        throw new RuntimeException('Bu e-posta adresi zaten kayıtlı.');
+    }
+
+    $_SESSION['veriler']['kullanicilar'][$id]['ad_soyad'] = $ad;
+    $_SESSION['veriler']['kullanicilar'][$id]['eposta'] = strtolower($eposta);
+    if ($sifreHash !== null) {
+        $_SESSION['veriler']['kullanicilar'][$id]['sifre_hash'] = $sifreHash;
+    }
+}
+
 function personelAktifliginiDegistir($id)
 {
     $personel = kullaniciGetir($id);

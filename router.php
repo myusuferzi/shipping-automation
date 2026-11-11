@@ -25,6 +25,7 @@ $sayfalar = [
     '/kargo.php' => 'kargo.php',
     '/kargo-ekle.php' => 'kargo-ekle.php',
     '/personeller.php' => 'personeller.php',
+    '/personel-duzenle.php' => 'personel-duzenle.php',
 ];
 
 require __DIR__ . '/' . ($sayfalar[$yol] ?? '404.php');
