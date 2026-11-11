@@ -4,7 +4,7 @@ Kargo kayıtlarını, personel atamalarını ve teslimat süreçlerini tek yerde
 
 ## Proje durumu
 
-Ortak sayfa düzeni, ana sayfa ve 404 ekranı hazırdır. Veritabanı şeması, giriş sistemi ve kargo işlemleri henüz geliştirilmemiştir.
+Ortak sayfa düzeni, ana sayfa ve 404 ekranı hazırdır. Giriş ve kayıt formlarının arayüzleri hazırdır; gönderim butonları henüz etkin değildir. Hesap verisi kaydedilmez ve oturum açılmaz. Veritabanı şeması, giriş sistemi ve kargo işlemleri henüz geliştirilmemiştir.
 
 ## Planlanan özellikler
 
@@ -24,6 +24,8 @@ Ortak sayfa düzeni, ana sayfa ve 404 ekranı hazırdır. Veritabanı şeması, 
 
 ```text
 index.php             # Ana sayfa taslağı
+login.php             # Giriş formu
+register.php          # Müşteri kayıt formu
 404.php               # Sayfa bulunamadı ekranı
 router.php            # Yerel sunucunun sayfa yönlendirmeleri
 includes/

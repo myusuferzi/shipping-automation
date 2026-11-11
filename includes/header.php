@@ -47,6 +47,14 @@ $aktifSayfa = $aktifSayfa ?? '';
                             <li class="nav-item">
                                 <a class="nav-link" href="/index.php#hakkinda">Hakkında</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $aktifSayfa === 'login' ? 'active' : '' ?>"
+                                    <?= $aktifSayfa === 'login' ? 'aria-current="page"' : '' ?> href="/login.php">Giriş yap</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $aktifSayfa === 'register' ? 'active' : '' ?>"
+                                    <?= $aktifSayfa === 'register' ? 'aria-current="page"' : '' ?> href="/register.php">Kayıt ol</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

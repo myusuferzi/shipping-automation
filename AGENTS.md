@@ -33,6 +33,14 @@ Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam deği�
 - Giriş yaparak kendisine ait kargoları listeler ve detaylarını görüntüler.
 - Kargolarının güncel konumunu, durumunu ve işlem geçmişini takip eder.
 
+## Giriş ve hesap oluşturma
+
+- Giriş sayfası yönetici, kargo personeli ve müşteri için ortaktır.
+- Başarılı girişten sonra kullanıcı veritabanındaki rolüne göre ilgili sayfaya yönlendirilir. Rol, giriş formundan alınmaz.
+- Herkese açık kayıt sayfası yalnızca müşteri hesabı oluşturur. Kullanıcıya rol seçimi sunulmaz; müşteri rolü sunucu tarafında atanır.
+- Personel hesaplarını yönetici oluşturur.
+- İlk yönetici hesabı kurulum sırasında oluşturulur; herkese açık yönetici kaydı bulunmaz.
+
 ## Çalışma yaklaşımı
 
 - Kodu okunabilir, açıklanabilir ve gereksinimlerle orantılı tut.

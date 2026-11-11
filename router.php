@@ -21,6 +21,14 @@ switch ($yol) {
         require __DIR__ . '/index.php';
         break;
 
+    case '/login.php':
+        require __DIR__ . '/login.php';
+        break;
+
+    case '/register.php':
+        require __DIR__ . '/register.php';
+        break;
+
     default:
         require __DIR__ . '/404.php';
         break;

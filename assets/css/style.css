@@ -242,6 +242,15 @@ h2 {
     margin-bottom: 12px;
 }
 
+/* Giriş ve kayıt formları */
+.auth-panel {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 28px;
+    border: 1px solid #dce3db;
+    border-radius: 12px;
+}
+
 /* Mobil görünüm */
 @media (max-width: 991px) {
     .hero {
