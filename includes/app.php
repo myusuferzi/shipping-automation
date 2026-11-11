@@ -28,6 +28,12 @@ function yonlendir($adres)
     exit;
 }
 
+// Yönlendirmeden sonra yalnızca bir kez gösterilecek başarı mesajı.
+function bildirimEkle($mesaj)
+{
+    $_SESSION['bildirim'] = $mesaj;
+}
+
 function mevcutKullanici()
 {
     return kullaniciGetir($_SESSION['kullanici_id'] ?? 0);

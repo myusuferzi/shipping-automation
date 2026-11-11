@@ -19,6 +19,11 @@ if (!$kargo) {
 
 $duzenleyebilir = in_array($kullanici['rol'], ['yonetici', 'personel'], true);
 $hata = '';
+// Hatalı gönderimde kayıtlı kargoyu değiştirmeden form değerlerini koru.
+$formDurum = $kargo['durum'];
+$formKonum = $kargo['konum'];
+$formPersonel = $kargo['personel_id'];
+$formAciklama = '';
 $personeller = array_filter(kullanicilariGetir(), function ($hesap) {
     return $hesap['rol'] === 'personel' && $hesap['aktif'];
 });
@@ -33,11 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $durum = postMetni('durum');
     $konum = postMetni('konum');
     $aciklama = postMetni('aciklama');
+    $formDurum = $durum;
+    $formKonum = $konum;
+    $formAciklama = $aciklama;
     $personelId = $kargo['personel_id'];
 
     // Personel, kargoyu başka bir personele atayamaz.
     if ($kullanici['rol'] === 'yonetici') {
         $personelId = postMetni('personel_id') === '' ? null : (int) postMetni('personel_id');
+        $formPersonel = $personelId;
         $personel = kullaniciGetir($personelId ?? 0);
         if ($personelId !== null && (!$personel || $personel['rol'] !== 'personel' || !$personel['aktif'])) {
             $hata = 'Geçerli bir personel seçin.';
@@ -49,8 +58,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!$hata) {
-        kargoGuncelle($id, $durum, $konum, $personelId, $aciklama, $kullanici['id']);
-        yonlendir('/kargo.php?id=' . $id);
+        try {
+            kargoGuncelle($id, $durum, $konum, $personelId, $aciklama, $kullanici['id']);
+            bildirimEkle('Kargo bilgileri güncellendi.');
+            yonlendir('/kargo.php?id=' . $id);
+        } catch (RuntimeException $istisna) {
+            $hata = $istisna->getMessage();
+        }
     }
 }
 
@@ -100,28 +114,28 @@ require __DIR__ . '/includes/header.php';
                         <label class="form-label" for="durum">Durum</label>
                         <select class="form-select" id="durum" name="durum" required>
                             <?php foreach (kargoDurumlari() as $durumSecenegi): ?>
-                                <option <?= $kargo['durum'] === $durumSecenegi ? 'selected' : '' ?>><?= e($durumSecenegi) ?></option>
+                                <option <?= $formDurum === $durumSecenegi ? 'selected' : '' ?>><?= e($durumSecenegi) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="konum">Mevcut konum</label>
-                        <input class="form-control" id="konum" name="konum" value="<?= e($kargo['konum']) ?>" maxlength="200" required>
+                        <input class="form-control" id="konum" name="konum" value="<?= e($formKonum) ?>" maxlength="200" required>
                     </div>
                     <?php if ($kullanici['rol'] === 'yonetici'): ?>
                         <div class="col-md-6">
                             <label class="form-label" for="personel">Atanan personel</label>
                             <select class="form-select" id="personel" name="personel_id">
-                                <option value="">Atanmadı</option>
+                                <option value="" <?= $formPersonel === null ? 'selected' : '' ?>>Atanmadı</option>
                                 <?php foreach ($personeller as $personel): ?>
-                                    <option value="<?= e($personel['id']) ?>" <?= $kargo['personel_id'] === $personel['id'] ? 'selected' : '' ?>><?= e($personel['ad_soyad']) ?></option>
+                                    <option value="<?= e($personel['id']) ?>" <?= $formPersonel === $personel['id'] ? 'selected' : '' ?>><?= e($personel['ad_soyad']) ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     <?php endif; ?>
                     <div class="col-12">
                         <label class="form-label" for="aciklama">İşlem açıklaması</label>
-                        <textarea class="form-control" id="aciklama" name="aciklama" rows="2" maxlength="1000"></textarea>
+                        <textarea class="form-control" id="aciklama" name="aciklama" rows="2" maxlength="1000"><?= e($formAciklama) ?></textarea>
                     </div>
                 </div>
                 <button class="btn btn-primary mt-3" type="submit">Kaydet</button>

@@ -3,6 +3,8 @@ require_once __DIR__ . '/app.php';
 $oturumKullanicisi = mevcutKullanici();
 $sayfaBasligi = $sayfaBasligi ?? 'Kargo Takip';
 $aktifSayfa = $aktifSayfa ?? '';
+$bildirim = $_SESSION['bildirim'] ?? '';
+unset($_SESSION['bildirim']);
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -82,3 +84,9 @@ $aktifSayfa = $aktifSayfa ?? '';
                 </div>
             </nav>
         </header>
+
+        <?php if ($bildirim): ?>
+            <div class="container mt-4">
+                <p class="alert alert-success mb-0" role="status"><?= e($bildirim) ?></p>
+            </div>
+        <?php endif; ?>

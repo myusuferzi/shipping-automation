@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_regenerate_id(true);
             $_SESSION['kullanici_id'] = $id;
             unset($_SESSION['csrf']);
+            bildirimEkle('Hesabınız oluşturuldu. Hoş geldiniz.');
             yonlendir('/kargolar.php');
         } catch (RuntimeException $istisna) {
             $hata = $istisna->getMessage();

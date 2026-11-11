@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if (postMetni('islem') === 'aktiflik') {
             personelAktifliginiDegistir((int) postMetni('id'));
+            bildirimEkle('Personelin hesap durumu güncellendi.');
         } elseif (postMetni('islem') === 'ekle') {
             $ad = postMetni('ad_soyad');
             $eposta = postMetni('eposta');
@@ -16,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new RuntimeException('Ad soyad, geçerli e-posta ve 8–72 bayt uzunluğunda şifre girin.');
             }
             kullaniciEkle($ad, $eposta, password_hash($sifre, PASSWORD_DEFAULT), 'personel');
+            bildirimEkle('Personel hesabı oluşturuldu.');
         } else {
             throw new RuntimeException('Geçersiz işlem.');
         }

@@ -8,6 +8,7 @@
 - [x] Yöneticinin kargo oluşturması ve personel ataması.
 - [x] Personel hesabı oluşturma, aktifleştirme ve pasife alma.
 - [x] MySQL entegrasyonu için fonksiyon ve alan sözleşmesi.
+- [x] Kayıt sonrası tek seferlik başarı mesajları ve hatalı kargo formunda değerlerin korunması.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
 - [ ] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.

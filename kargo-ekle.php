@@ -45,8 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!$hata) {
-        $id = kargoEkle($bilgiler, $kullanici['id']);
-        yonlendir('/kargo.php?id=' . $id);
+        try {
+            $id = kargoEkle($bilgiler, $kullanici['id']);
+            bildirimEkle('Kargo oluşturuldu.');
+            yonlendir('/kargo.php?id=' . $id);
+        } catch (RuntimeException $istisna) {
+            $hata = $istisna->getMessage();
+        }
     }
 }
 
