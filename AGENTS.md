@@ -57,6 +57,13 @@ Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam deği�
 - Değişiklikleri uygun kontrollerle doğrula; çalıştırılamayan kontrolleri açıkça belirt.
 - Çalıştırma ve kurulum adımları netleşince bunları `README.md` içinde belgele.
 
+## Veri katmanı ve iş bölümü
+
+- Yerel geliştirmede MySQL kurulumu gerektirme. Örnek veriler `data/ornek.php` ile oluşturulup session'da saklanır.
+- Sayfalar veri okumak/yazmak için `data/veri.php` fonksiyonlarını kullanır. Sayfalara SQL veya örnek veri dizileri yerleştirme.
+- MySQL bağlantısı ve sorguları ekip arkadaşı uygulayacak. Fonksiyonlar ve dönüş alanları `VERI-BAGLANTISI.md` içinde belgelenir.
+- Örnek verilerle yapılan değişiklikler yalnızca aynı tarayıcı session'ında paylaşılır. Bu sınırı gerçek veri kalıcılığı olarak sunma.
+
 ## Plan ve ilerleme
 
 Bu dosya kalıcı proje yönergeleri içindir. Ayrıntılı görev ve ilerleme takibi gerektiğinde ayrı bir `PLAN.md` kullan; tamamlanan adımları orada güncelle.
