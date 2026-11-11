@@ -9,6 +9,7 @@ $aktifSayfa = $aktifSayfa ?? '';
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Kargo takip ve yönetim otomasyonu: gönderilerinizi ve teslimat sürecini tek yerden takip edin.">
         <title><?= htmlspecialchars($sayfaBasligi, ENT_QUOTES, 'UTF-8') ?> | Kargo</title>
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
         <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/style.css">
     </head>
