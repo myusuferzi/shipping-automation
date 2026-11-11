@@ -14,22 +14,17 @@ if (
     return false;
 }
 
-// Yeni sayfalar eklendikçe bu listeye de eklenir.
-switch ($yol) {
-    case '/':
-    case '/index.php':
-        require __DIR__ . '/index.php';
-        break;
+// Yalnızca bu listedeki sayfalar ziyaret edilebilir.
+$sayfalar = [
+    '/' => 'index.php',
+    '/index.php' => 'index.php',
+    '/login.php' => 'login.php',
+    '/register.php' => 'register.php',
+    '/logout.php' => 'logout.php',
+    '/kargolar.php' => 'kargolar.php',
+    '/kargo.php' => 'kargo.php',
+    '/kargo-ekle.php' => 'kargo-ekle.php',
+    '/personeller.php' => 'personeller.php',
+];
 
-    case '/login.php':
-        require __DIR__ . '/login.php';
-        break;
-
-    case '/register.php':
-        require __DIR__ . '/register.php';
-        break;
-
-    default:
-        require __DIR__ . '/404.php';
-        break;
-}
+require __DIR__ . '/' . ($sayfalar[$yol] ?? '404.php');

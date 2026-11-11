@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/app.php';
+$oturumKullanicisi = mevcutKullanici();
 $sayfaBasligi = $sayfaBasligi ?? 'Kargo Takip';
 $aktifSayfa = $aktifSayfa ?? '';
 ?>
@@ -12,9 +14,14 @@ $aktifSayfa = $aktifSayfa ?? '';
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
         <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/gonderi-karti.css">
     </head>
     <body>
         <a class="visually-hidden-focusable skip-link" href="#icerik">İçeriğe geç</a>
+
+        <div class="bg-light border-bottom py-2 text-center small">
+            Örnek veri modu · Değişiklikler yalnızca bu tarayıcı oturumunda saklanır.
+        </div>
 
         <!-- Üst menü -->
         <header class="border-bottom bg-white">
@@ -47,14 +54,29 @@ $aktifSayfa = $aktifSayfa ?? '';
                             <li class="nav-item">
                                 <a class="nav-link" href="/index.php#hakkinda">Hakkında</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= $aktifSayfa === 'login' ? 'active' : '' ?>"
-                                    <?= $aktifSayfa === 'login' ? 'aria-current="page"' : '' ?> href="/login.php">Giriş yap</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link <?= $aktifSayfa === 'register' ? 'active' : '' ?>"
-                                    <?= $aktifSayfa === 'register' ? 'aria-current="page"' : '' ?> href="/register.php">Kayıt ol</a>
-                            </li>
+                            <?php if ($oturumKullanicisi && $oturumKullanicisi['aktif']): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/kargolar.php">Kargolar</a>
+                                </li>
+                                <?php if ($oturumKullanicisi['rol'] === 'yonetici'): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/personeller.php">Personeller</a>
+                                    </li>
+                                <?php endif; ?>
+                                <li class="nav-item">
+                                    <form action="/logout.php" method="post">
+                                        <input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>">
+                                        <button class="btn btn-outline-secondary" type="submit">Çıkış yap</button>
+                                    </form>
+                                </li>
+                            <?php else: ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login.php">Giriş yap</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/register.php">Kayıt ol</a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>

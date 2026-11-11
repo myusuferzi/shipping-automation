@@ -24,24 +24,11 @@ require __DIR__ . '/includes/header.php';
                     </a>
                 </div>
                 <div class="col-lg-5">
-                    <div class="shipment-preview">
-                        <div class="d-flex justify-content-between align-items-center mb-4 gap-3">
-                            <span class="fw-semibold">Gönderi yolculuğu</span>
-                            <span class="badge rounded-pill preview-label">Örnek görünüm</span>
-                        </div>
-                        <div class="parcel-illustration" aria-hidden="true">
-                            <span>↑ ↑</span>
-                            <strong>K.</strong>
-                        </div>
-                        <p class="text-center fw-semibold mt-4 mb-2">Her adımda güncel bilgi</p>
-                        <p class="text-center text-secondary small mb-0">Kabulden teslimata kadar tüm hareketler.</p>
-                        <div class="preview-stages mt-4" aria-hidden="true">
-                            <span>Kabul</span>
-                            <span>Transfer</span>
-                            <span>Dağıtım</span>
-                            <span>Teslimat</span>
-                        </div>
-                    </div>
+                    <?php
+                    $kartOrnek = true;
+                    $kartKargo = ['durum' => 'Dağıtımda'];
+                    require __DIR__ . '/includes/gonderi-karti.php';
+                    ?>
                 </div>
             </div>
         </div>
