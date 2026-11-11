@@ -187,6 +187,44 @@ h2 {
     border-radius: 12px;
 }
 
+/* Kargo listesi */
+.shipment-list thead {
+    background: #f5f7f3;
+}
+
+.shipment-list .table {
+    --bs-table-bg: transparent;
+    --bs-table-hover-bg: #f5f7f3;
+    --bs-table-border-color: #e6ebe6;
+}
+
+.shipment-list th,
+.shipment-list td {
+    padding: 18px;
+}
+
+.shipment-list thead th {
+    color: #5e6c66;
+    font-size: .8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.shipment-list .tracking-link {
+    color: var(--brand);
+    font-size: .9rem;
+    text-decoration: none;
+}
+
+.shipment-list .tracking-link:hover {
+    text-decoration: underline;
+}
+
+.shipment-list .badge {
+    padding: 7px 10px;
+    font-weight: 500;
+}
+
 /* Mobil görünüm */
 @media (max-width: 991px) {
     .hero {
