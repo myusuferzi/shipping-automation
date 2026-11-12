@@ -4,9 +4,19 @@ Kargo kayıtlarını, personel atamalarını ve teslimat süreçlerini tek yerde
 
 ## Proje durumu
 
-Ortak sayfa düzeni, ana sayfa ve 404 ekranı hazırdır. Veritabanı şeması, giriş sistemi ve kargo işlemleri henüz geliştirilmemiştir.
+Müşteri, personel ve yönetici ekranları session'da tutulan örnek verilerle çalışır. Giriş, kayıt, çıkış, kargo listesi/detayı, kargo oluşturma/güncelleme ve personel yönetimi denenebilir. MySQL bağlantısı henüz uygulanmamıştır.
 
-## Planlanan özellikler
+Örnek veriler her tarayıcı oturumunda ayrıdır; başka bir tarayıcıda aynı hesapla giriş yapmak aynı kayıtları paylaşmaz. Oturum verisi silindiğinde değişiklikler sıfırlanır. Yerel örnek hesapların tamamında şifre `Deneme123!`:
+
+| Rol | E-posta |
+| --- | --- |
+| Yönetici | `yonetici@example.test` |
+| Personel | `personel@example.test` |
+| Müşteri | `musteri@example.test` |
+
+MySQL iş bölümü ve fonksiyonlar: [Veri bağlantısı](VERI-BAGLANTISI.md). İlerleme: [PLAN.md](PLAN.md). Tarayıcıda kontrol adımları: [TEST.md](TEST.md).
+
+## Özellikler
 
 - **Yönetici:** Kargo oluşturma, gönderici ve alıcı bilgilerini kaydetme, personele kargo atama ve personel hesaplarını yönetme.
 - **Kargo personeli:** Atanmış kargoları teslimat tarihine göre listeleme; konum, durum ve teslimat bilgilerini güncelleme.
@@ -23,14 +33,30 @@ Ortak sayfa düzeni, ana sayfa ve 404 ekranı hazırdır. Veritabanı şeması, 
 ## Dosya yapısı
 
 ```text
-index.php             # Ana sayfa taslağı
+data/
+├── ornek.php         # Örnek hesap ve kayıtlar
+└── veri.php          # MySQL geçişinde değiştirilecek fonksiyonlar
+kargolar.php          # Role göre kargo listesi
+kargo.php             # Detay, hareket geçmişi ve güncelleme
+kargo-ekle.php        # Yönetici kargo oluşturma
+kargo-duzenle.php     # Yönetici gönderi bilgilerini düzenleme
+personeller.php       # Yönetici personel yönetimi
+personel-duzenle.php  # Personel bilgisi ve isteğe bağlı şifre güncelleme
+logout.php            # POST ile çıkış
+index.php             # Ana sayfa
+login.php             # Giriş formu
+register.php          # Müşteri kayıt formu
 404.php               # Sayfa bulunamadı ekranı
 router.php            # Yerel sunucunun sayfa yönlendirmeleri
 includes/
+├── app.php           # Session, CSRF ve yetki yardımcıları
 ├── header.php        # Ortak HTML başlangıcı, CSS ve menü
-└── footer.php        # Ortak alt bilgi, JavaScript ve kapanışlar
+├── footer.php        # Ortak alt bilgi, JavaScript ve kapanışlar
+├── gonderi-karti.php # Ana sayfa ve detayın ortak gönderi kartı
+└── erisim-engeli.php # Yetki ve form doğrulama hatalarının ortak ekranı
 assets/
 ├── css/style.css     # Projeye ait stiller
+├── js/app.js         # Şifre alanları ve işlem onayı
 └── vendor/bootstrap/ # Yerel Bootstrap dosyaları ve lisansı
 AGENTS.md             # Geliştirme yönergeleri
 README.md             # Proje açıklaması
@@ -44,7 +70,7 @@ PHP kuruluysa proje dizininde şu komutla yerel geliştirme sunucusu başlatıla
 php -S localhost:8000 router.php
 ```
 
-Tarayıcıda `http://localhost:8000` adresini açın. Mevcut ana sayfa veritabanı gerektirmez. MySQL yapılandırması ve şema kurulum adımları ilgili özellikler geliştirildiğinde eklenecektir.
+Tarayıcıda `http://localhost:8000` adresini açın. Mevcut örnek veri modu MySQL gerektirmez. PHP 8.0 veya üzeri ve session desteği gerekir. Gerçek MySQL bağlantısı için `VERI-BAGLANTISI.md` dosyasını izleyin.
 
 ## Ortak sayfa düzeni
 
@@ -70,3 +96,9 @@ Yerel sunucu `router.php` ile başlatıldığında bulunamayan adresler otomatik
 ## Üçüncü taraf yazılımlar
 
 Bootstrap 5.3.8, MIT lisansı altında dağıtılmaktadır. Lisans metni: [assets/vendor/bootstrap/LICENSE](assets/vendor/bootstrap/LICENSE).
+
+## Gönderi kartı
+
+`includes/gonderi-karti.php`, ana sayfada örnek bir gönderiyle, kargo detayında ise erişim kontrolünden geçen kargoyla kullanılır. `$kartKargo` dizisinden durum, konum ve planlanan teslimat tarihi okunur; örnek olmayan kartta takip numarası da gösterilir. `$kartOrnek`, örnek etiketinin gösterilip gösterilmeyeceğini belirler.
+
+Kartın görünümü ve CSS animasyonları `assets/css/gonderi-karti.css` içindedir. Ana sayfadaki örnek sabittir. Detay açıldığında bar kayıtlı aşamaya kadar bir kez dolar ve kutu örnekteki konumuna yerleşir. Durum değişikliği kaydedilince kart yeni durumu gösterir. Animasyon veri güncellemez; hareket azaltma tercihinde kapalıdır.

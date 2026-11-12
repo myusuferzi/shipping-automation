@@ -33,6 +33,14 @@ Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam deği�
 - Giriş yaparak kendisine ait kargoları listeler ve detaylarını görüntüler.
 - Kargolarının güncel konumunu, durumunu ve işlem geçmişini takip eder.
 
+## Giriş ve hesap oluşturma
+
+- Giriş sayfası yönetici, kargo personeli ve müşteri için ortaktır.
+- Başarılı girişten sonra kullanıcı veritabanındaki rolüne göre ilgili sayfaya yönlendirilir. Rol, giriş formundan alınmaz.
+- Herkese açık kayıt sayfası yalnızca müşteri hesabı oluşturur. Kullanıcıya rol seçimi sunulmaz; müşteri rolü sunucu tarafında atanır.
+- Personel hesaplarını yönetici oluşturur.
+- İlk yönetici hesabı kurulum sırasında oluşturulur; herkese açık yönetici kaydı bulunmaz.
+
 ## Çalışma yaklaşımı
 
 - Kodu okunabilir, açıklanabilir ve gereksinimlerle orantılı tut.
@@ -48,6 +56,13 @@ Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam deği�
 - Gizli bilgileri ve gerçek kullanıcı verilerini kaynak koduna ekleme.
 - Değişiklikleri uygun kontrollerle doğrula; çalıştırılamayan kontrolleri açıkça belirt.
 - Çalıştırma ve kurulum adımları netleşince bunları `README.md` içinde belgele.
+
+## Veri katmanı ve iş bölümü
+
+- Yerel geliştirmede MySQL kurulumu gerektirme. Örnek veriler `data/ornek.php` ile oluşturulup session'da saklanır.
+- Sayfalar veri okumak/yazmak için `data/veri.php` fonksiyonlarını kullanır. Sayfalara SQL veya örnek veri dizileri yerleştirme.
+- MySQL bağlantısı ve sorguları ekip arkadaşı uygulayacak. Fonksiyonlar ve dönüş alanları `VERI-BAGLANTISI.md` içinde belgelenir.
+- Örnek verilerle yapılan değişiklikler yalnızca aynı tarayıcı session'ında paylaşılır. Bu sınırı gerçek veri kalıcılığı olarak sunma.
 
 ## Plan ve ilerleme
 

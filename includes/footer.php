@@ -5,5 +5,6 @@
             </div>
         </footer>
         <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+        <script src="/assets/js/app.js" defer></script>
     </body>
 </html>

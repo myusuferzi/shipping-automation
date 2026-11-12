@@ -1,0 +1,182 @@
+/* Ortak gönderi kartı */
+.shipment-preview {
+    max-width: 430px;
+    margin-left: auto;
+    padding: 28px;
+    border: 1px solid #dce3db;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 16px 40px #20332e08;
+}
+
+.preview-label {
+    background: #f0f3ef;
+    color: #5b6b61;
+    font-weight: 500;
+}
+
+.parcel-illustration {
+    position: relative;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    width: 150px;
+    height: 132px;
+    margin: 34px auto;
+    padding: 18px;
+    border: 1px solid #bc8b55;
+    border-radius: 4px;
+    background: #dbb184;
+    color: #634a2f;
+    transform: rotate(-7deg);
+    box-shadow: 10px 12px 0 #f2eee7;
+}
+
+.parcel-illustration::before {
+    position: absolute;
+    top: 0;
+    left: 60px;
+    width: 28px;
+    height: 55px;
+    content: '';
+    background: #edcfaa;
+    border: 1px solid #c99f70;
+    border-top: 0;
+}
+
+.parcel-illustration strong {
+    font-size: 2rem;
+}
+
+.parcel-illustration span {
+    font-size: 1.2rem;
+}
+
+/* Ana sayfadaki ilk örnek görünüm korunur. */
+.preview-stages {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    border-top: 3px solid #b6c9bd;
+    padding-top: 12px;
+    color: #5e6c66;
+    font-size: .75rem;
+}
+
+/* Detay sayfasında bar, kayıtlı duruma kadar bir kez dolar. */
+.shipment-tracking .preview-stages {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    padding: 0;
+    margin-bottom: 0;
+    border: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.shipment-tracking .preview-stages::before,
+.shipment-tracking .preview-stages::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    content: '';
+}
+
+.shipment-tracking .preview-stages::before {
+    width: 100%;
+    background: #e1e7e2;
+}
+
+.shipment-tracking .preview-stages::after {
+    width: var(--stage-progress, 0%);
+    background: var(--brand);
+    transform-origin: left;
+    animation: stage-fill 1.2s ease-out both;
+}
+
+.stage-0 {
+    --stage-progress: 12.5%;
+}
+
+.stage-1 {
+    --stage-progress: 37.5%;
+}
+
+.stage-2 {
+    --stage-progress: 62.5%;
+}
+
+.stage-3 {
+    --stage-progress: 100%;
+}
+
+.preview-stages li {
+    position: relative;
+    padding-top: 24px;
+}
+
+.stage-dot {
+    position: absolute;
+    z-index: 1;
+    top: -4px;
+    left: calc(50% - 5px);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #dce3db;
+}
+
+.stage-complete,
+.stage-current {
+    color: var(--brand);
+}
+
+.stage-complete .stage-dot,
+.stage-current .stage-dot {
+    background: var(--brand);
+}
+
+.stage-current {
+    font-weight: 700;
+}
+
+.shipment-tracking .parcel-illustration {
+    animation: parcel-arrive 1.2s ease-out both;
+}
+
+@keyframes stage-fill {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* Kutu tek geçişte örnekteki boyutuna ve açısına yerleşir. */
+@keyframes parcel-arrive {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(.9) rotate(0deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(-7deg);
+    }
+}
+
+@media (max-width: 991px) {
+    .shipment-preview {
+        margin: 0 auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .shipment-tracking .parcel-illustration,
+    .shipment-tracking .preview-stages::after {
+        animation: none;
+    }
+}
