@@ -21,10 +21,6 @@ unset($_SESSION['bildirim']);
     <body>
         <a class="visually-hidden-focusable skip-link" href="#icerik">İçeriğe geç</a>
 
-        <div class="bg-light border-bottom py-2 text-center small">
-            Örnek veri modu · Değişiklikler yalnızca bu tarayıcı oturumunda saklanır.
-        </div>
-
         <!-- Üst menü -->
         <header class="border-bottom bg-white">
             <nav class="navbar navbar-expand-sm py-3" aria-label="Ana menü">
