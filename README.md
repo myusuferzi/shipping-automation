@@ -43,14 +43,17 @@ logout.php            # POST ile çıkış
 index.php             # Ana sayfa
 login.php             # Giriş formu
 register.php          # Müşteri kayıt formu
+403.php               # Yetkisiz işlem ekranı
 404.php               # Sayfa bulunamadı ekranı
+500.php               # Bağımsız sunucu hatası ekranı
 router.php            # Yerel sunucunun sayfa yönlendirmeleri
 includes/
 ├── app.php           # Session, CSRF ve yetki yardımcıları
 ├── header.php        # Ortak HTML başlangıcı, CSS ve menü
 ├── footer.php        # Ortak alt bilgi, JavaScript ve kapanışlar
 ├── gonderi-karti.php # Ana sayfa ve detayın ortak gönderi kartı
-└── erisim-engeli.php # Yetki ve form doğrulama hatalarının ortak ekranı
+├── kargo-alanlari.php # Kargo oluşturma ve düzenlemenin ortak form alanları
+└── hata-icerigi.php  # 403, 404 ve 500 ekranlarının ortak içeriği
 assets/
 ├── css/style.css     # Projeye ait stiller
 ├── js/app.js         # Şifre alanları ve işlem onayı
@@ -71,7 +74,7 @@ MySQL sunucusu PHP'nin çalıştığı bilgisayarda olmak zorunda değildir. Uza
 
 ### Veritabanı hazırlığı
 
-Güncel main dalındaki `schema.sql`, `shipping_automation` veritabanının dört tablo yapısını içerir. Kurulumdan önce main'deki güncel dosyaları alın. phpMyAdmin'de `shipping_automation` veritabanını oluşturup seçin ve İçe aktar bölümünden `schema.sql` dosyasını aktarın.
+Proje kökündeki `schema.sql`, `shipping_automation` veritabanının dört tablo yapısını içerir. phpMyAdmin'de `shipping_automation` veritabanını oluşturup seçin ve İçe aktar bölümünden `schema.sql` dosyasını aktarın.
 
 SQL dosyası kullanıcı kaydı içermez. İlk yönetici hesabını veritabanı tarafının belirlediği kurulum yöntemiyle hazırlayın; kayıt sayfası yalnızca müşteri hesabı oluşturur. Şifre düz metin olarak saklanmamalı, PHP'nin `password_hash()` fonksiyonuyla üretilen hash kullanılmalıdır.
 
@@ -123,3 +126,9 @@ Bootstrap 5.3.8, MIT lisansı altında dağıtılmaktadır. Lisans metni: [asset
 `includes/gonderi-karti.php`, ana sayfada örnek bir gönderiyle, kargo detayında ise erişim kontrolünden geçen kargoyla kullanılır. `$kartKargo` dizisinden durum, konum ve planlanan teslimat tarihi okunur; örnek olmayan kartta takip numarası da gösterilir. `$kartOrnek`, örnek etiketinin gösterilip gösterilmeyeceğini belirler.
 
 Kartın görünümü ve CSS animasyonları `assets/css/gonderi-karti.css` içindedir. Ana sayfadaki örnek sabittir. Detay açıldığında bar kayıtlı aşamaya kadar bir kez dolar ve kutu örnekteki konumuna yerleşir. Durum değişikliği kaydedilince kart yeni durumu gösterir. Animasyon veri güncellemez; hareket azaltma tercihinde kapalıdır.
+
+## Hata ekranları
+
+403, 404 ve 500 ekranları `includes/hata-icerigi.php` şablonunu kullanır. Kod, başlık ve açıklama sayfalarda belirlenir. 403 ve 404 ortak menüyü kullanır; 500, veritabanından bağımsız bir başlangıçla açılır.
+
+500 ekranı şimdilik `/500.php` adresinden incelenebilir. Beklenmeyen uygulama hatalarında bu ekranın otomatik gösterilmesi henüz bağlanmamıştır.

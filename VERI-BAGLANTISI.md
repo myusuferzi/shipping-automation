@@ -8,7 +8,7 @@ Sayfalar, veri okumak ve yazmak için `data/veri.php` içindeki PDO sorguların�
 
 ## Kurulum ve bakım
 
-- Veritabanı şeması main dalındaki `schema.sql` dosyasıdır. Dört tablo içerir: `kullanicilar`, `adresler`, `kargolar`, `kargo_hareketleri`. Kullanıcı kayıtları içermez.
+- Veritabanı şeması proje kökündeki `schema.sql` dosyasıdır. Dört tablo içerir: `kullanicilar`, `adresler`, `kargolar`, `kargo_hareketleri`. Kullanıcı kayıtları içermez.
 - `config/database.local.php` yerel bağlantı bilgilerini ve `$db` PDO nesnesini sağlar; Git dışında tutulur. `config/database.example.php` bağlantı değişkenlerini gösterir; PDO nesnesi yerel dosyada hazırlanmalıdır.
 - İlk yönetici hesabı veritabanı tarafının belirlediği kurulum yöntemiyle oluşturulur. Şifre hash olarak saklanır; herkese açık yönetici kaydı bulunmaz.
 - Kargo oluşturma/güncelleme ile hareket ekleme aynı transaction içinde kalmalıdır.

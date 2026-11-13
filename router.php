@@ -18,6 +18,8 @@ if (
 $sayfalar = [
     '/' => 'index.php',
     '/index.php' => 'index.php',
+    '/403.php' => '403.php',
+    '/500.php' => '500.php',
     '/login.php' => 'login.php',
     '/register.php' => 'register.php',
     '/logout.php' => 'logout.php',
