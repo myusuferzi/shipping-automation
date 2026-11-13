@@ -159,9 +159,9 @@ function kargoEkle($bilgiler, $islemiYapan) {
         
         // 3. Kargoyu Ekle (Takip numarasını ID'ye göre oluşturmak için önce geçici bir takip no verilir)
         $geciciTakip = 'TMP_' . uniqid();
-        $sorguKargo = $db->prepare("INSERT INTO kargolar (takip_no, musteri_id, gonderici_adi, gonderici_adres_id, alici_adi, alici_adres_id, teslimat_tarihi, konum, durum) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Kabul edildi')");
+        $sorguKargo = $db->prepare("INSERT INTO kargolar (takip_no, musteri_id, personel_id, gonderici_adi, gonderici_adres_id, alici_adi, alici_adres_id, teslimat_tarihi, konum, durum) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'Kabul edildi')");
         $sorguKargo->execute([
-            $geciciTakip, $bilgiler['musteri_id'], $bilgiler['gonderici_adi'], $gondericiAdresId, 
+            $geciciTakip, $bilgiler['musteri_id'], $bilgiler['personel_id'], $bilgiler['gonderici_adi'], $gondericiAdresId,
             $bilgiler['alici_adi'], $aliciAdresId, $bilgiler['teslimat_tarihi'], $bilgiler['konum']
         ]);
         

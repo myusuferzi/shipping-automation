@@ -20,3 +20,12 @@
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.
 
 Arayüz ve veritabanısız iş akışları bu depoda geliştirilir. MySQL kurulumu bu geliştirme aşaması için gerekli değildir. Veri bağlantısı adımları `VERI-BAGLANTISI.md` içindedir.
+
+## MySQL geçişi inceleme bulguları
+
+1. [ ] Kurulum için SQL şeması, PDO bağlantı örneği ve ilk yönetici hesabı adımlarını tamamla.
+2. [x] Yeni kargo oluştururken seçilen `personel_id` değerini kaydet; personel seçilmediyse `null` tut.
+3. [ ] Teknik veritabanı hata ayrıntısını kullanıcı mesajından çıkar; hata günlüğüne yaz.
+4. [ ] README'deki örnek veri modu ve MySQL olmadan çalıştırma açıklamalarını mevcut davranışa göre güncelle.
+
+İkinci madde geçici SQLite veritabanıyla kontrol edildi; gerçek MySQL üzerinde doğrulama bekliyor.
