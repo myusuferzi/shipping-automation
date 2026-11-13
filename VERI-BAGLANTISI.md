@@ -2,19 +2,18 @@
 
 ## İş bölümü
 
-Sayfalar, oturum ve yetki kontrolleri hazır PHP fonksiyonlarını kullanır. MySQL'e geçerken öncelikle `data/veri.php` içindeki fonksiyon gövdeleri değiştirilecektir. Sayfalar `$_SESSION['veriler']` dizisine doğrudan erişmez.
+Sayfalar, veri okumak ve yazmak için `data/veri.php` içindeki PDO sorgularını kullanır. Session yalnızca oturum, CSRF ve bildirim bilgilerini tutar; kargo ve kullanıcı kayıtları MySQL'dedir.
 
-`data/ornek.php` yalnızca yerel örnek veriler üretir. Şu an örnek veriler her tarayıcının session'ında ayrıdır: başka tarayıcıda açılan hesap aynı değişiklikleri görmez. Çıkış yapmak verileri silmez; session sona erdiğinde örnek veriler sıfırlanır. Bu yapı gerçek çok kullanıcılı kayıt sistemi değildir.
+`data/ornek.php` eski örnek veri dosyasıdır ve mevcut uygulamada yüklenmez. Başka bir tarayıcı yeni bir örnek veri kümesi oluşturmaz; aynı MySQL sunucusuna bağlanan oturumlar ortak kayıtları kullanır.
 
-## MySQL'e geçiş
+## Kurulum ve bakım
 
-1. Gerçek tablo yapısını ve alan adlarını birlikte netleştirin. En az dört ilişkili tablo gereksinimini koruyun; örneğin kullanıcılar, adresler, kargolar ve hareketler.
-2. Bağlantıyı `config/database.local.php` içinde yapılandırın; bu dosya Git dışında tutulur. Parolasız bir örnek yapılandırma dosyası paylaşın.
-3. `data/veri.php` içindeki örnek veri yükleme bölümünü kaldırıp MySQL bağlantısını ekleyin. `data/ornek.php` gerçek ortamda yüklenmemelidir.
-4. Aşağıdaki fonksiyonları PDO ve parametreli sorgularla uygulayın. Dönüş alanlarını koruyun; gerekirse SQL alias kullanın.
-5. Kargo oluşturma/güncelleme ile hareket eklemeyi aynı transaction içinde yapın. E-posta ve takip numarası için veritabanında benzersiz kısıt kullanın. E-posta benzersizliği büyük/küçük harfe duyarsız olmalıdır.
-6. PDO hata ayrıntılarını kullanıcıya göstermeyin. Beklenen iş hatalarını anlaşılır `RuntimeException` mesajlarıyla bildirin.
-7. Entegrasyonu doğruladıktan sonra ortak header'daki örnek veri uyarısını ve giriş ekranındaki örnek hesapları kaldırın. İlk yönetici hesabını güvenli bir kurulum işlemiyle oluşturun.
+- Veritabanı şeması proje kökündeki `schema.sql` dosyasıdır. Dört tablo içerir: `kullanicilar`, `adresler`, `kargolar`, `kargo_hareketleri`. Kullanıcı kayıtları içermez.
+- `config/database.local.php` yerel bağlantı bilgilerini ve `$db` PDO nesnesini sağlar; Git dışında tutulur. `config/database.example.php` bağlantı değişkenlerini gösterir; PDO nesnesi yerel dosyada hazırlanmalıdır.
+- İlk yönetici hesabı veritabanı tarafının belirlediği kurulum yöntemiyle oluşturulur. Şifre hash olarak saklanır; herkese açık yönetici kaydı bulunmaz.
+- Kargo oluşturma/güncelleme ile hareket ekleme aynı transaction içinde kalmalıdır.
+- Beklenen iş hataları kullanıcıya anlaşılır mesajlarla bildirilir. Kargo işlemlerindeki teknik hata ayrıntıları PHP hata günlüğüne yazılır.
+- Fonksiyonların aşağıdaki dönüş alanları sayfalarla olan sözleşmedir; veritabanı değişirken bu alanlar korunmalıdır.
 
 ## Fonksiyonlar
 
@@ -54,6 +53,6 @@ PDO'dan dönen ID'leri int, `aktif` alanını bool yapın. Sayfalarda türü de 
 - `kargo.php`: Erişim kontrolü, detay, hareketler, yönetici/personel güncellemesi. Personel atamayı yalnızca yönetici yapar.
 - `kargo-ekle.php`, `kargo-duzenle.php`, `personeller.php`, `personel-duzenle.php`: Yalnızca yönetici işlemleri.
 
-Mevcut yaklaşım küçük veri için tüm kargoları getirip PHP'de filtreler. Büyük veri için kullanıcıya göre sorgulama ve sayfalama daha sonra ayrıca ele alınabilir. Yetki kontrollerini MySQL geçişinde kaldırmayın.
+Mevcut yaklaşım küçük veri için tüm kargoları getirip PHP'de filtreler. Büyük veri için kullanıcıya göre sorgulama ve sayfalama daha sonra ayrıca ele alınabilir. Veri katmanında değişiklik yaparken yetki kontrollerini koruyun.
 
 Kargo oluşturma ve düzenleme sayfaları `includes/kargo-alanlari.php` içindeki ortak alanları kullanır. Yönetici müşteri hesabını değiştirdiğinde eski müşteri erişimini kaybeder; yeni müşteri kargoyu görebilir.

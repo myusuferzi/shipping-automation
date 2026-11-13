@@ -43,7 +43,7 @@ function mevcutKullanici()
 function erisimEngelle($mesaj)
 {
     http_response_code(403);
-    require __DIR__ . '/erisim-engeli.php';
+    require __DIR__ . '/../403.php';
     exit;
 }
 

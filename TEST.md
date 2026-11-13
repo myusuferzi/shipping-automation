@@ -1,8 +1,8 @@
 # Elle kontrol adımları
 
-Bu liste tarayıcıda ve MySQL entegrasyonundan sonra kontrol etmek içindir; tamamlandığı varsayılmaz. Yerel sunucu: `php -S localhost:8000 router.php`.
+Bu liste çalışan MySQL bağlantısıyla tarayıcıda kontrol etmek içindir; tamamlandığı varsayılmaz. Yerel sunucu: `php -S localhost:8000 router.php`.
 
-Örnek hesaplar ve ortak şifre README'dedir. Aynı tarayıcıda çıkış yapıp diğer hesapla girerek aynı örnek kayıtlar üzerinde işlem yapabilirsiniz. Başka tarayıcı yeni bir örnek veri kümesi oluşturur.
+Test için veritabanında yönetici, personel ve iki ayrı müşteri hesabı hazırlayın. Gerçek kişilere ait veri kullanmayın. Aynı MySQL bağlantısını kullanan farklı tarayıcılar ortak kayıtları görür; her hesap yalnızca rolünün izin verdiği kayıtlara erişebilmelidir. SQL şeması tek başına test hesabı oluşturmaz.
 
 ## Hesaplar
 
@@ -43,6 +43,8 @@ Bu liste tarayıcıda ve MySQL entegrasyonundan sonra kontrol etmek içindir; ta
 - Müşteriyle başka müşterinin kargo detayını açın: 404 ekranı çıkmalı.
 - Var olmayan bir adresi ve iç içe bir adresi açın: 404 ekranının CSS'i ve ana sayfa bağlantısı çalışmalı.
 - Eski bir formu çıkış/giriş yaptıktan sonra gönderin: CSRF kontrolü işlemi reddetmeli.
+- `/500.php` adresini açın: ortak hata görünümü HTTP 500 koduyla gelmeli. Bu ekranın açılması MySQL bağlantısı gerektirmez.
+- 500 ekranının beklenmeyen hatalarda otomatik gösterilmesi henüz bağlı değildir; bu senaryoyu tamamlandı saymayın.
 
 ## Görünüm ve klavye
 
@@ -51,7 +53,7 @@ Bu liste tarayıcıda ve MySQL entegrasyonundan sonra kontrol etmek içindir; ta
 - Kargo detayındaki bar kayıtlı duruma kadar bir kez dolmalı; ana sayfadaki örnek sabit kalmalı.
 - Hareket azaltma tercihi açıkken kart animasyonu oynamamalı.
 
-## MySQL geçişinden sonra
+## Veritabanı ve çok kullanıcılı kontrol
 
 - Aynı akışı farklı iki tarayıcıdan deneyin; kayıtların ortak ve kalıcı olduğunu doğrulayın.
 - Aynı e-postayla eşzamanlı kayıt denemesinde tek hesap oluşmalı.
