@@ -178,8 +178,11 @@ function kargoEkle($bilgiler, $islemiYapan) {
         return (int)$kargoId;
         
     } catch (Exception $e) {
-        $db->rollBack(); // Hata varsa hiçbirini kaydetme, geri al
-        throw new RuntimeException("Kargo eklenirken bir hata oluştu: " . $e->getMessage());
+        error_log('Kargo ekleme hatası: ' . $e->getMessage());
+        if ($db->inTransaction()) {
+            $db->rollBack();
+        }
+        throw new RuntimeException("Kargo eklenirken bir hata oluştu. Lütfen tekrar deneyin.");
     }
 }
 
@@ -207,7 +210,10 @@ function kargoGuncelle($id, $durum, $konum, $personelId, $aciklama, $kullaniciId
         
         $db->commit();
     } catch (Exception $e) {
-        $db->rollBack();
+        error_log('Kargo güncelleme hatası: ' . $e->getMessage());
+        if ($db->inTransaction()) {
+            $db->rollBack();
+        }
         throw new RuntimeException("Kargo güncellenirken bir hata oluştu.");
     }
 }
@@ -240,7 +246,10 @@ function kargoBilgileriniGuncelle($id, $bilgiler, $kullaniciId) {
         
         $db->commit();
     } catch (Exception $e) {
-        $db->rollBack();
+        error_log('Gönderi bilgisi güncelleme hatası: ' . $e->getMessage());
+        if ($db->inTransaction()) {
+            $db->rollBack();
+        }
         throw new RuntimeException("Kargo bilgileri güncellenirken bir hata oluştu.");
     }
 }
