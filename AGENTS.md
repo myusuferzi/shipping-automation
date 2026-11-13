@@ -59,10 +59,10 @@ Proje kapsamı ve teknik gereksinimler aşağıda özetlenmiştir. Kapsam deği�
 
 ## Veri katmanı ve iş bölümü
 
-- Yerel geliştirmede MySQL kurulumu gerektirme. Örnek veriler `data/ornek.php` ile oluşturulup session'da saklanır.
+- Kullanıcının bilgisayarına MySQL kurulmasını zorunlu tutma; erişilebilir uzak bir MySQL sunucusu da kullanılabilir. Mevcut uygulama çalışan bir MySQL bağlantısı gerektirir.
 - Sayfalar veri okumak/yazmak için `data/veri.php` fonksiyonlarını kullanır. Sayfalara SQL veya örnek veri dizileri yerleştirme.
-- MySQL bağlantısı ve sorguları ekip arkadaşı uygulayacak. Fonksiyonlar ve dönüş alanları `VERI-BAGLANTISI.md` içinde belgelenir.
-- Örnek verilerle yapılan değişiklikler yalnızca aynı tarayıcı session'ında paylaşılır. Bu sınırı gerçek veri kalıcılığı olarak sunma.
+- MySQL bağlantısı ve sorguları ekip arkadaşı tarafından uygulanmıştır. Şema main dalındaki `schema.sql` içindedir. Fonksiyonlar ve dönüş alanları `VERI-BAGLANTISI.md` içinde belgelenir.
+- Kullanıcı ve kargo verileri MySQL içinde ortak ve kalıcıdır. Session oturum, CSRF ve bildirim içindir; `data/ornek.php` mevcut akışta yüklenmez.
 
 ## Plan ve ilerleme
 

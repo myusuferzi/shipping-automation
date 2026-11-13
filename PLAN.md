@@ -16,16 +16,18 @@
 - [x] Menüde aktif bölüm vurgusu ve kargo oluşturma alan sınırlarının kontrolü.
 - [x] Ayrı JavaScript dosyasında şifre gösterme, şifre tekrarı kontrolü ve personel durum değişikliği onayı.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
-- [ ] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
+- [x] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.
 
-Arayüz ve veritabanısız iş akışları bu depoda geliştirilir. MySQL kurulumu bu geliştirme aşaması için gerekli değildir. Veri bağlantısı adımları `VERI-BAGLANTISI.md` içindedir.
+Arayüz akışları örnek veri aşamasında geliştirilmiştir. Mevcut veri katmanı MySQL bağlantısı gerektirir; sunucunun yerel olması şart değildir. Veri bağlantısı adımları `VERI-BAGLANTISI.md` içindedir.
 
 ## MySQL geçişi inceleme bulguları
 
-1. [ ] Kurulum için SQL şeması, PDO bağlantı örneği ve ilk yönetici hesabı adımlarını tamamla.
+1. [x] Kurulum dosyaları veritabanı tarafında ele alındı; SQL şeması main dalına `schema.sql` olarak eklendi.
 2. [x] Yeni kargo oluştururken seçilen `personel_id` değerini kaydet; personel seçilmediyse `null` tut.
 3. [x] Kargo oluşturmadaki teknik hata ayrıntısını kullanıcı mesajından çıkar; kargo işlemlerinin hata ayrıntılarını PHP hata günlüğüne yaz.
-4. [ ] README'deki örnek veri modu ve MySQL olmadan çalıştırma açıklamalarını mevcut davranışa göre güncelle.
+4. [x] README'deki örnek veri modu ve MySQL olmadan çalıştırma açıklamalarını mevcut davranışa göre güncelle.
 
 İkinci madde geçici SQLite veritabanıyla kontrol edildi; gerçek MySQL üzerinde doğrulama bekliyor.
+
+SQL şeması main dalından bu dala birleştirildi; `schema.sql` proje kökünde bulunur. Şema tablo yapısını içerir, hesap kaydı eklemez. Gerçek MySQL kurulumu ve ilk yönetici hesabıyla uçtan uca kontrol bekliyor.

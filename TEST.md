@@ -1,8 +1,8 @@
 # Elle kontrol adımları
 
-Bu liste tarayıcıda ve MySQL entegrasyonundan sonra kontrol etmek içindir; tamamlandığı varsayılmaz. Yerel sunucu: `php -S localhost:8000 router.php`.
+Bu liste çalışan MySQL bağlantısıyla tarayıcıda kontrol etmek içindir; tamamlandığı varsayılmaz. Yerel sunucu: `php -S localhost:8000 router.php`.
 
-Örnek hesaplar ve ortak şifre README'dedir. Aynı tarayıcıda çıkış yapıp diğer hesapla girerek aynı örnek kayıtlar üzerinde işlem yapabilirsiniz. Başka tarayıcı yeni bir örnek veri kümesi oluşturur.
+Test için veritabanında yönetici, personel ve iki ayrı müşteri hesabı hazırlayın. Gerçek kişilere ait veri kullanmayın. Aynı MySQL bağlantısını kullanan farklı tarayıcılar ortak kayıtları görür; her hesap yalnızca rolünün izin verdiği kayıtlara erişebilmelidir. SQL şeması tek başına test hesabı oluşturmaz.
 
 ## Hesaplar
 
@@ -51,7 +51,7 @@ Bu liste tarayıcıda ve MySQL entegrasyonundan sonra kontrol etmek içindir; ta
 - Kargo detayındaki bar kayıtlı duruma kadar bir kez dolmalı; ana sayfadaki örnek sabit kalmalı.
 - Hareket azaltma tercihi açıkken kart animasyonu oynamamalı.
 
-## MySQL geçişinden sonra
+## Veritabanı ve çok kullanıcılı kontrol
 
 - Aynı akışı farklı iki tarayıcıdan deneyin; kayıtların ortak ve kalıcı olduğunu doğrulayın.
 - Aynı e-postayla eşzamanlı kayıt denemesinde tek hesap oluşmalı.

@@ -4,15 +4,9 @@ Kargo kayıtlarını, personel atamalarını ve teslimat süreçlerini tek yerde
 
 ## Proje durumu
 
-Müşteri, personel ve yönetici ekranları session'da tutulan örnek verilerle çalışır. Giriş, kayıt, çıkış, kargo listesi/detayı, kargo oluşturma/güncelleme ve personel yönetimi denenebilir. MySQL bağlantısı henüz uygulanmamıştır.
+Müşteri, personel ve yönetici ekranları MySQL veri katmanını kullanır. Giriş, kayıt, çıkış, kargo işlemleri ve personel yönetimi için çalışan bir veritabanı bağlantısı gerekir. Session yalnızca oturum, form doğrulama ve bildirimler için kullanılır.
 
-Örnek veriler her tarayıcı oturumunda ayrıdır; başka bir tarayıcıda aynı hesapla giriş yapmak aynı kayıtları paylaşmaz. Oturum verisi silindiğinde değişiklikler sıfırlanır. Yerel örnek hesapların tamamında şifre `Deneme123!`:
-
-| Rol | E-posta |
-| --- | --- |
-| Yönetici | `yonetici@example.test` |
-| Personel | `personel@example.test` |
-| Müşteri | `musteri@example.test` |
+`data/ornek.php` eski örnek veri dosyasıdır; mevcut uygulama bu dosyayı yüklemez. Önceki örnek hesaplar otomatik oluşturulmaz. Giriş için kurulu veritabanında bulunan hesaplar kullanılmalıdır.
 
 MySQL iş bölümü ve fonksiyonlar: [Veri bağlantısı](VERI-BAGLANTISI.md). İlerleme: [PLAN.md](PLAN.md). Tarayıcıda kontrol adımları: [TEST.md](TEST.md).
 
@@ -33,9 +27,12 @@ MySQL iş bölümü ve fonksiyonlar: [Veri bağlantısı](VERI-BAGLANTISI.md). �
 ## Dosya yapısı
 
 ```text
+config/
+├── database.example.php # Bağlantı ayarlarının paylaşılabilir örneği
+└── database.local.php   # Yerel PDO bağlantısı; Git dışında tutulur
 data/
-├── ornek.php         # Örnek hesap ve kayıtlar
-└── veri.php          # MySQL geçişinde değiştirilecek fonksiyonlar
+├── ornek.php         # Eski örnek veriler; mevcut akışta yüklenmez
+└── veri.php          # PDO ile MySQL sorguları
 kargolar.php          # Role göre kargo listesi
 kargo.php             # Detay, hareket geçmişi ve güncelleme
 kargo-ekle.php        # Yönetici kargo oluşturma
@@ -64,13 +61,37 @@ README.md             # Proje açıklaması
 
 ## Kurulum
 
-PHP kuruluysa proje dizininde şu komutla yerel geliştirme sunucusu başlatılabilir:
+### Gereksinimler
+
+- PHP 8.0 veya üzeri, session, PDO ve `pdo_mysql` desteği.
+- Erişilebilir bir MySQL sunucusu ve uygulamanın tabloları.
+- `config/database.local.php` içinde uygulamanın kullanacağı `$db` PDO bağlantısı.
+
+MySQL sunucusu PHP'nin çalıştığı bilgisayarda olmak zorunda değildir. Uzak bir sunucuya bağlanılacaksa bağlantı ve erişim bilgileri yerel yapılandırmada belirtilmelidir.
+
+### Veritabanı hazırlığı
+
+Güncel main dalındaki `schema.sql`, `shipping_automation` veritabanının dört tablo yapısını içerir. Kurulumdan önce main'deki güncel dosyaları alın. phpMyAdmin'de `shipping_automation` veritabanını oluşturup seçin ve İçe aktar bölümünden `schema.sql` dosyasını aktarın.
+
+SQL dosyası kullanıcı kaydı içermez. İlk yönetici hesabını veritabanı tarafının belirlediği kurulum yöntemiyle hazırlayın; kayıt sayfası yalnızca müşteri hesabı oluşturur. Şifre düz metin olarak saklanmamalı, PHP'nin `password_hash()` fonksiyonuyla üretilen hash kullanılmalıdır.
+
+`config/database.example.php` bağlantı değişkenlerini gösterir; mevcut örnek tek başına `$db` nesnesini oluşturmaz. `config/database.local.php` dosyasında bağlantı bilgileri ve çalışan PDO bağlantısı bulunmalıdır. Bu yerel dosya Git'e eklenmez.
+
+### PHP geliştirme sunucusu
+
+Veritabanı hazırlığı ve bağlantısı tamamlandıktan sonra proje dizininde:
 
 ```bash
 php -S localhost:8000 router.php
 ```
 
-Tarayıcıda `http://localhost:8000` adresini açın. Mevcut örnek veri modu MySQL gerektirmez. PHP 8.0 veya üzeri ve session desteği gerekir. Gerçek MySQL bağlantısı için `VERI-BAGLANTISI.md` dosyasını izleyin.
+Tarayıcıda `http://localhost:8000` adresini açın. Bu komut yalnızca PHP sunucusunu başlatır; MySQL'i başlatmaz veya tabloları oluşturmaz. Bağlantı dosyası yoksa uygulama açılmaz.
+
+### AppServ / Apache
+
+Apache ve MySQL çalışır durumda olmalı, yerel PDO bağlantısı hazırlanmalıdır. Mevcut bağlantılar `/assets/` ve `/login.php` gibi site köküne göre yazılmıştır; Apache'nin site kökü bu proje dizinini göstermelidir. Projeyi doğrudan `/kargo/` gibi bir alt klasörden açmak mevcut yollarla desteklenmez. Ortak alt klasör desteği ayrıca kararlaştırılacaktır.
+
+`router.php` PHP geliştirme sunucusuna özeldir; Apache bu dosyayı kendiliğinden çalıştırmaz. Özel 404 davranışı için Apache yapılandırması gerekir.
 
 ## Ortak sayfa düzeni
 
