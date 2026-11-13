@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_regenerate_id(true);
         $_SESSION['kullanici_id'] = $hesap['id'];
         unset($_SESSION['csrf']);
-        yonlendir('/shipping-automation/kargolar.php');
+        yonlendir('/kargolar.php');
     }
 
     $hata = 'E-posta veya şifre hatalı ya da hesap aktif değil.';
@@ -32,7 +32,7 @@ require __DIR__ . '/includes/header.php';
             <p class="alert alert-danger" role="alert"><?= e($hata) ?></p>
         <?php endif; ?>
 
-        <form action="/shipping-automation/login.php" method="post">
+        <form action="/login.php" method="post">
             <input type="hidden" name="csrf" value="<?= e(csrfToken()) ?>">
             <div class="mb-3">
                 <label class="form-label" for="eposta">E-posta adresi</label>
@@ -52,7 +52,7 @@ require __DIR__ . '/includes/header.php';
         </form>
 
         <p class="text-center small mt-4 mb-0">
-            Hesabınız yok mu? <a href="/shipping-automation/register.php">Kayıt olun</a>
+            Hesabınız yok mu? <a href="/register.php">Kayıt olun</a>
         </p>
     </div>
 </main>

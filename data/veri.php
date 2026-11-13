@@ -1,5 +1,4 @@
 <?php
-// Veritabanı bağlantısı dahil edildi. (ornek.php ve $_SESSION tamamen kaldırıldı)
 require_once __DIR__ . '/../config/database.local.php';
 
 
