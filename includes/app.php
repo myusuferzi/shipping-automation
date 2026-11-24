@@ -1,4 +1,20 @@
 <?php
+// Hata oluşursa yarım kalan HTML yerine temiz bir 500 ekranı gönderilir.
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+ob_start();
+$hataTamponSeviyesi = ob_get_level();
+
+set_exception_handler(function (Throwable $hata) use ($hataTamponSeviyesi) {
+    error_log((string) $hata);
+
+    while (ob_get_level() >= $hataTamponSeviyesi) {
+        ob_end_clean();
+    }
+
+    require __DIR__ . '/../500.php';
+});
+
 // Ortak başlangıç: oturum, veri fonksiyonları ve form yardımcıları.
 date_default_timezone_set('Europe/Istanbul');
 if (session_status() !== PHP_SESSION_ACTIVE) {

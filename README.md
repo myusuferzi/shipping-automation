@@ -129,4 +129,4 @@ Kartın görünümü ve CSS animasyonları `assets/css/gonderi-karti.css` içind
 
 403, 404 ve 500 ekranları `includes/hata-icerigi.php` şablonunu kullanır. Kod, başlık ve açıklama sayfalarda belirlenir. 403 ve 404 ortak menüyü kullanır; 500, veritabanından bağımsız bir başlangıçla açılır.
 
-500 ekranı şimdilik `/500.php` adresinden incelenebilir. Beklenmeyen uygulama hatalarında bu ekranın otomatik gösterilmesi henüz bağlanmamıştır.
+Ortak başlangıç dosyası yüklendikten sonra yakalanmamış PHP hataları ve istisnalarında 500 ekranı HTTP 500 durum koduyla gösterilir. Teknik ayrıntılar PHP hata günlüğüne yazılır; yarım kalan sayfa içeriği temizlenir. Veritabanı bağlantı hataları da bu kapsamdadır. Ekran ayrıca `/500.php` adresinden incelenebilir.

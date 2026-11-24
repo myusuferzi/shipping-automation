@@ -44,7 +44,8 @@ Test için veritabanında yönetici, personel ve iki ayrı müşteri hesabı haz
 - Var olmayan bir adresi ve iç içe bir adresi açın: 404 ekranının CSS'i ve ana sayfa bağlantısı çalışmalı.
 - Eski bir formu çıkış/giriş yaptıktan sonra gönderin: CSRF kontrolü işlemi reddetmeli.
 - `/500.php` adresini açın: ortak hata görünümü HTTP 500 koduyla gelmeli. Bu ekranın açılması MySQL bağlantısı gerektirmez.
-- 500 ekranının beklenmeyen hatalarda otomatik gösterilmesi henüz bağlı değildir; bu senaryoyu tamamlandı saymayın.
+- Yerel testte bağlantı dosyasını geçici olarak devre dışı bırakıp ana sayfayı açın: teknik ayrıntı yerine HTTP 500 koduyla hata ekranı gelmeli; ayrıntılar PHP hata günlüğüne yazılmalı. Ardından bağlantı dosyasını geri koyun.
+- Sayfanın bir kısmı üretildikten sonra yakalanmamış bir hata oluştuğunda yarım HTML yerine tek bir 500 ekranı gösterilmeli.
 
 ## Görünüm ve klavye
 
