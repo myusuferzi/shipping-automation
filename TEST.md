@@ -29,6 +29,16 @@ Test için veritabanında yönetici, personel ve iki ayrı müşteri hesabı haz
 6. Yöneticiyle kargonun müşteri hesabını değiştirin. Eski müşteri artık detayı açamamalı; yeni müşteri görebilmeli.
 7. Arama, durum filtresi ve sıralamayı birlikte deneyin. Erişim dışındaki kargolar sonuçlara girmemeli.
 
+## Kargo özetleri ve gecikmeler
+
+- Her rolün özet sayıları yalnızca erişebildiği kargoları içermeli.
+- Toplam, dağıtımda, bugün teslim edilecek ve geciken kartlarına basınca ilgili kayıtlar listelenmeli.
+- Bugün ve geciken sayıları teslim edilmiş kargoları içermemeli. Bugün tarihli kargo gecikmiş sayılmamalı.
+- Geçmiş tarihli ve teslim edilmemiş kargoda “Gecikti” etiketi görünmeli; teslim edilince kalkmalı.
+- Kart seçildikten sonra arama, durum ve sıralama uygulanabilmeli; kart sayıları aramadan etkilenmemeli. Temizle tüm listeye dönmeli.
+- Seçilen grupta kayıt yoksa filtreye uygun boş sonuç mesajı görünmeli.
+- Kartlar açık/karanlık temada, dar ekranda ve klavyeyle kontrol edilmeli.
+
 ## Personel yönetimi
 
 - Yönetici yeni personel oluşturabilmeli, ad/e-posta düzenleyebilmeli.

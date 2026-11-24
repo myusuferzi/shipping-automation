@@ -255,6 +255,36 @@ h2 {
     color: #e5ad78;
 }
 
+/* Kargo özetleri */
+.shipment-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface-card);
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.shipment-summary strong {
+    color: var(--ink);
+}
+
+.shipment-summary:hover,
+.shipment-summary.is-active {
+    border-color: var(--brand);
+    background: var(--surface-soft);
+    color: var(--brand);
+}
+
+.shipment-summary:focus-visible {
+    outline: 3px solid var(--brand);
+    outline-offset: 3px;
+}
+
 /* Kargo listesi */
 .shipment-list thead {
     background: var(--surface-soft);

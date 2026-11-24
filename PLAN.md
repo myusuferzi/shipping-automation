@@ -18,6 +18,9 @@
 - [x] 403 ekranını köke taşıma ve 403/404/500 için ortak hata içeriği.
 - [x] Ortak başlangıçta yakalanmamış PHP hatalarını ve istisnalarını günlüğe yazıp sade 500 ekranını gösterme.
 - [x] Bootstrap ve ortak renk değişkenleriyle açık/karanlık tema, yumuşak geçiş ve tema tercihinin saklanması.
+- [x] Kargo listesinde role göre özet kartları, kart filtreleri ve gecikme etiketi.
+- [ ] Kargo listesinde sayfalama.
+- [ ] Kargo detay bağlantısını kopyalama.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
 - [x] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.

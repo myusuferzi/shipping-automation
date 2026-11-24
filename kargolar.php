@@ -9,14 +9,51 @@ if (!in_array($durumFiltresi, kargoDurumlari(), true)) {
     $durumFiltresi = '';
 }
 
+// Özetler arama sonucundan değil, kullanıcının tüm kargolarından hesaplanır.
+$bugun = date('Y-m-d');
+$gorunum = isset($_GET['gorunum']) && is_string($_GET['gorunum']) ? $_GET['gorunum'] : 'tumu';
+$ozetler = [
+    'tumu' => ['baslik' => 'Toplam kargo', 'sayi' => count($kargolar)],
+    'dagitimda' => ['baslik' => 'Dağıtımda', 'sayi' => 0],
+    'bugun' => ['baslik' => 'Bugün teslim edilecek', 'sayi' => 0],
+    'geciken' => ['baslik' => 'Geciken', 'sayi' => 0],
+];
+
+if (!isset($ozetler[$gorunum])) {
+    $gorunum = 'tumu';
+}
+
+foreach ($kargolar as $kargo) {
+    if ($kargo['durum'] === 'Dağıtımda') {
+        $ozetler['dagitimda']['sayi']++;
+    }
+
+    if ($kargo['durum'] !== 'Teslim edildi') {
+        if ($kargo['teslimat_tarihi'] === $bugun) {
+            $ozetler['bugun']['sayi']++;
+        } elseif ($kargo['teslimat_tarihi'] < $bugun) {
+            $ozetler['geciken']['sayi']++;
+        }
+    }
+}
+
 // Önce erişim kontrolü yapılır; yalnızca kullanıcının görebildiği kayıtlar aranır.
-$kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, $durumFiltresi) {
+$kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, $durumFiltresi, $gorunum, $bugun) {
     $aramaUyuyor = $arama === ''
         || stripos($kargo['takip_no'], $arama) !== false
         || stripos($kargo['alici_adi'], $arama) !== false;
     $durumUyuyor = $durumFiltresi === '' || $kargo['durum'] === $durumFiltresi;
 
-    return $aramaUyuyor && $durumUyuyor;
+    $gorunumUyuyor = true;
+    if ($gorunum === 'dagitimda') {
+        $gorunumUyuyor = $kargo['durum'] === 'Dağıtımda';
+    } elseif ($gorunum === 'bugun') {
+        $gorunumUyuyor = $kargo['teslimat_tarihi'] === $bugun && $kargo['durum'] !== 'Teslim edildi';
+    } elseif ($gorunum === 'geciken') {
+        $gorunumUyuyor = $kargo['teslimat_tarihi'] < $bugun && $kargo['durum'] !== 'Teslim edildi';
+    }
+
+    return $aramaUyuyor && $durumUyuyor && $gorunumUyuyor;
 }));
 
 
@@ -49,6 +86,20 @@ require __DIR__ . '/includes/header.php';
         <?php endif; ?>
     </div>
 
+    <!-- Kart seçimi listeyi filtreler; sayılar tüm erişilebilir kargoları gösterir. -->
+    <nav class="row g-3 mb-4" aria-label="Kargo özetleri">
+        <?php foreach ($ozetler as $anahtar => $ozet): ?>
+            <div class="col-6 col-lg-3">
+                <a class="shipment-summary <?= $gorunum === $anahtar ? 'is-active' : '' ?>"
+                    href="/kargolar.php?<?= e(http_build_query(['gorunum' => $anahtar, 'sirala' => $siralama])) ?>"
+                    <?= $gorunum === $anahtar ? 'aria-current="true"' : '' ?>>
+                    <span class="small"><?= e($ozet['baslik']) ?></span>
+                    <strong class="fs-2"><?= e($ozet['sayi']) ?></strong>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </nav>
+
     <section class="shipment-list border rounded-3 overflow-hidden" aria-label="Kargo listesi">
         <div class="list-toolbar bg-success-subtle p-3 p-md-4 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-3">
             <p class="mb-0 fw-semibold text-success-emphasis">
@@ -59,6 +110,7 @@ require __DIR__ . '/includes/header.php';
         </div>
 
         <form class="row g-3 m-0 p-3 border-bottom align-items-end" action="/kargolar.php" method="get">
+            <input type="hidden" name="gorunum" value="<?= e($gorunum) ?>">
             <div class="col-md-4">
                 <label class="form-label small" for="arama">Takip numarası veya alıcı</label>
                 <input class="form-control form-control-sm" type="search" id="arama" name="arama" value="<?= e($arama) ?>" placeholder="Kargo ara">
@@ -87,7 +139,7 @@ require __DIR__ . '/includes/header.php';
 
         <?php if (!$kargolar): ?>
             <div class="text-center p-5">
-                <?php if ($arama !== '' || $durumFiltresi !== ''): ?>
+                <?php if ($arama !== '' || $durumFiltresi !== '' || $gorunum !== 'tumu'): ?>
                     <h2 class="h5">Aramanıza uygun kargo bulunamadı</h2>
                     <p class="text-secondary mb-0">Farklı bir arama deneyin veya filtreleri temizleyin.</p>
                 <?php else: ?>
@@ -123,7 +175,12 @@ require __DIR__ . '/includes/header.php';
                                     </span>
                                 </td>
                                 <td><?= e($kargo['konum']) ?></td>
-                                <td class="text-nowrap"><?= e(date('d.m.Y', strtotime($kargo['teslimat_tarihi']))) ?></td>
+                                <td class="text-nowrap">
+                                    <?= e(date('d.m.Y', strtotime($kargo['teslimat_tarihi']))) ?>
+                                    <?php if ($kargo['teslimat_tarihi'] < $bugun && $kargo['durum'] !== 'Teslim edildi'): ?>
+                                        <span class="badge bg-danger-subtle text-danger-emphasis ms-2">Gecikti</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td class="text-end">
                                     <a class="btn btn-sm btn-outline-success text-nowrap" href="/kargo.php?id=<?= e($kargo['id']) ?>">Detayı gör</a>
                                 </td>
