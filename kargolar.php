@@ -53,7 +53,7 @@ require __DIR__ . '/includes/header.php';
         <div class="list-toolbar bg-success-subtle p-3 p-md-4 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-3">
             <p class="mb-0 fw-semibold text-success-emphasis">
                 Gönderiler
-                <span class="badge rounded-pill bg-white text-success-emphasis border border-success-subtle ms-2"><?= count($kargolar) ?> kayıt</span>
+                <span class="badge rounded-pill bg-body text-success-emphasis border border-success-subtle ms-2"><?= count($kargolar) ?> kayıt</span>
             </p>
 
         </div>

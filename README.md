@@ -2,13 +2,9 @@
 
 Kargo kayıtlarını, personel atamalarını ve teslimat süreçlerini tek yerden yönetmek için geliştirilen web uygulaması.
 
-## Proje durumu
+## Genel yapı
 
 Müşteri, personel ve yönetici ekranları MySQL veri katmanını kullanır. Giriş, kayıt, çıkış, kargo işlemleri ve personel yönetimi için çalışan bir veritabanı bağlantısı gerekir. Session yalnızca oturum, form doğrulama ve bildirimler için kullanılır.
-
-`data/ornek.php` eski örnek veri dosyasıdır; mevcut uygulama bu dosyayı yüklemez. Önceki örnek hesaplar otomatik oluşturulmaz. Giriş için kurulu veritabanında bulunan hesaplar kullanılmalıdır.
-
-MySQL iş bölümü ve fonksiyonlar: [Veri bağlantısı](VERI-BAGLANTISI.md). İlerleme: [PLAN.md](PLAN.md). Tarayıcıda kontrol adımları: [TEST.md](TEST.md).
 
 ## Özellikler
 
@@ -16,6 +12,7 @@ MySQL iş bölümü ve fonksiyonlar: [Veri bağlantısı](VERI-BAGLANTISI.md). �
 - **Kargo personeli:** Atanmış kargoları teslimat tarihine göre listeleme; konum, durum ve teslimat bilgilerini güncelleme.
 - **Müşteri:** Kendi kargolarının detaylarını, güncel durumunu ve işlem geçmişini görüntüleme.
 - Kullanıcı kaydı, giriş ve PHP session ile rol tabanlı erişim kontrolü.
+- Üst menüden değiştirilebilen açık/karanlık tema. İlk açılışta sistem tercihi kullanılır; seçim tarayıcıda saklanır.
 
 ## Teknolojiler
 
@@ -31,7 +28,6 @@ config/
 ├── database.example.php # Bağlantı ayarlarının paylaşılabilir örneği
 └── database.local.php   # Yerel PDO bağlantısı; Git dışında tutulur
 data/
-├── ornek.php         # Eski örnek veriler; mevcut akışta yüklenmez
 └── veri.php          # PDO ile MySQL sorguları
 kargolar.php          # Role göre kargo listesi
 kargo.php             # Detay, hareket geçmişi ve güncelleme
@@ -53,13 +49,15 @@ includes/
 ├── footer.php        # Ortak alt bilgi, JavaScript ve kapanışlar
 ├── gonderi-karti.php # Ana sayfa ve detayın ortak gönderi kartı
 ├── kargo-alanlari.php # Kargo oluşturma ve düzenlemenin ortak form alanları
+├── tema-dugmesi.php   # Güneş/ay simgeli tema anahtarı
 └── hata-icerigi.php  # 403, 404 ve 500 ekranlarının ortak içeriği
 assets/
 ├── css/style.css     # Projeye ait stiller
+├── css/gonderi-karti.css # Gönderi kartı ve animasyonları
 ├── js/app.js         # Şifre alanları ve işlem onayı
+├── js/tema.js        # Tema seçimi ve tarayıcıda saklanması
 └── vendor/bootstrap/ # Yerel Bootstrap dosyaları ve lisansı
-AGENTS.md             # Geliştirme yönergeleri
-README.md             # Proje açıklaması
+schema.sql            # Veritabanı tablo yapısı
 ```
 
 ## Kurulum
@@ -92,7 +90,7 @@ Tarayıcıda `http://localhost:8000` adresini açın. Bu komut yalnızca PHP sun
 
 ### AppServ / Apache
 
-Apache ve MySQL çalışır durumda olmalı, yerel PDO bağlantısı hazırlanmalıdır. Mevcut bağlantılar `/assets/` ve `/login.php` gibi site köküne göre yazılmıştır; Apache'nin site kökü bu proje dizinini göstermelidir. Projeyi doğrudan `/kargo/` gibi bir alt klasörden açmak mevcut yollarla desteklenmez. Ortak alt klasör desteği ayrıca kararlaştırılacaktır.
+Apache ve MySQL çalışır durumda olmalı, yerel PDO bağlantısı hazırlanmalıdır. Mevcut bağlantılar `/assets/` ve `/login.php` gibi site köküne göre yazılmıştır; Apache'nin site kökü bu proje dizinini göstermelidir. Projeyi doğrudan `/kargo/` gibi bir alt klasörden açmak mevcut yollarla desteklenmez.
 
 `router.php` PHP geliştirme sunucusuna özeldir; Apache bu dosyayı kendiliğinden çalıştırmaz. Özel 404 davranışı için Apache yapılandırması gerekir.
 

@@ -17,6 +17,7 @@
 - [x] Ayrı JavaScript dosyasında şifre gösterme, şifre tekrarı kontrolü ve personel durum değişikliği onayı.
 - [x] 403 ekranını köke taşıma ve 403/404/500 için ortak hata içeriği.
 - [ ] Beklenmeyen sunucu hatalarını sade 500 ekranına bağlama.
+- [x] Bootstrap ve ortak renk değişkenleriyle açık/karanlık tema, yumuşak geçiş ve tema tercihinin saklanması.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
 - [x] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.

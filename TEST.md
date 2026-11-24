@@ -53,6 +53,15 @@ Test için veritabanında yönetici, personel ve iki ayrı müşteri hesabı haz
 - Kargo detayındaki bar kayıtlı duruma kadar bir kez dolmalı; ana sayfadaki örnek sabit kalmalı.
 - Hareket azaltma tercihi açıkken kart animasyonu oynamamalı.
 
+## Açık ve karanlık tema
+
+- Üst menüde Karanlık tema düğmesine basın; arka plan, yazılar, tablolar, formlar ve gönderi kartı yumuşak geçişle değişmeli.
+- Ana sayfa, giriş/kayıt, kargo listesi/detayı, yönetim formları ve 403/404/500 ekranlarında iki temayı kontrol edin.
+- Sayfa değiştirince ve yenileyince seçim korunmalı; açılışta açık tema parlamamalı.
+- Kayıtlı tercih yokken sistemin açık/karanlık tercihi kullanılmalı.
+- Hareket azaltma tercihi açıkken tema renkleri animasyonsuz değişmeli.
+- Mobil menüde ve klavyeyle tema düğmesine erişilebilmeli. Ekran okuyucu karanlık temanın açık olup olmadığını bildirmeli.
+
 ## Veritabanı ve çok kullanıcılı kontrol
 
 - Aynı akışı farklı iki tarayıcıdan deneyin; kayıtların ortak ve kalıcı olduğunu doğrulayın.

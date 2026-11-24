@@ -13,16 +13,18 @@ $hataAciklamasi = 'İşleminizi şu anda tamamlayamıyoruz. Lütfen daha sonra t
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Bir sorun oluştu | Kargo</title>
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+        <script src="/assets/js/tema.js"></script>
         <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/style.css">
     </head>
     <body>
         <header class="border-bottom py-3">
-            <div class="container">
+            <div class="container d-flex justify-content-between align-items-center">
                 <a class="navbar-brand fw-bold" href="/index.php">
                     <span class="brand-mark" aria-hidden="true">K</span>
                     Kargo<span class="brand-dot">.</span>
                 </a>
+                <?php require __DIR__ . '/includes/tema-dugmesi.php'; ?>
             </div>
         </header>
 
