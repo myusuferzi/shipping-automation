@@ -19,6 +19,7 @@
 - [x] Ortak başlangıçta yakalanmamış PHP hatalarını ve istisnalarını günlüğe yazıp sade 500 ekranını gösterme.
 - [x] Bootstrap ve ortak renk değişkenleriyle açık/karanlık tema, yumuşak geçiş ve tema tercihinin saklanması.
 - [x] Kargo listesinde role göre özet kartları, kart filtreleri ve gecikme etiketi.
+- [x] Planlanan teslimat tarihi için başlangıç/bitiş aralığı filtresi.
 - [x] Yönetici için müşteri/personel filtreleri, atanmamış kargolar ve konum/adres araması.
 - [x] Kargo listesinde filtreleri koruyan, sayfa başına 10 kayıt gösteren sayfalama.
 - [x] Kargo listesinde ve detayında simgeli bağlantı kopyalama düğmesi.

@@ -9,6 +9,23 @@ if (!in_array($durumFiltresi, kargoDurumlari(), true)) {
     $durumFiltresi = '';
 }
 
+// Tarih aralığı planlanan teslimat tarihine uygulanır; iki uç da dahildir.
+$baslangicTarihi = isset($_GET['baslangic']) && is_string($_GET['baslangic']) ? $_GET['baslangic'] : '';
+$bitisTarihi = isset($_GET['bitis']) && is_string($_GET['bitis']) ? $_GET['bitis'] : '';
+$tarihHatasi = '';
+foreach ([$baslangicTarihi, $bitisTarihi] as $tarihMetni) {
+    if ($tarihMetni === '') {
+        continue;
+    }
+    $tarih = DateTime::createFromFormat('!Y-m-d', $tarihMetni);
+    if (!$tarih || $tarih->format('Y-m-d') !== $tarihMetni) {
+        $tarihHatasi = 'Geçerli bir teslimat tarihi aralığı girin.';
+    }
+}
+if ($baslangicTarihi !== '' && $bitisTarihi !== '' && $baslangicTarihi > $bitisTarihi) {
+    $tarihHatasi = 'Başlangıç tarihi bitiş tarihinden sonra olamaz.';
+}
+
 // Kişi filtreleri yalnızca yönetici için uygulanır.
 $musteriler = [];
 $personeller = [];
@@ -68,7 +85,7 @@ foreach ($kargolar as $kargo) {
 }
 
 // Önce erişim kontrolü yapılır; yalnızca kullanıcının görebildiği kayıtlar aranır.
-$kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, $durumFiltresi, $gorunum, $bugun, $musteriFiltresi, $personelFiltresi) {
+$kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, $durumFiltresi, $gorunum, $bugun, $musteriFiltresi, $personelFiltresi, $baslangicTarihi, $bitisTarihi, $tarihHatasi) {
     $aramaUyuyor = $arama === ''
         || stripos($kargo['takip_no'], $arama) !== false
         || stripos($kargo['alici_adi'], $arama) !== false
@@ -93,7 +110,11 @@ $kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, 
         $personelUyuyor = $kargo['personel_id'] === (int) $personelFiltresi;
     }
 
-    return $aramaUyuyor && $durumUyuyor && $gorunumUyuyor && $musteriUyuyor && $personelUyuyor;
+    $tarihUyuyor = $tarihHatasi === ''
+        && ($baslangicTarihi === '' || $kargo['teslimat_tarihi'] >= $baslangicTarihi)
+        && ($bitisTarihi === '' || $kargo['teslimat_tarihi'] <= $bitisTarihi);
+
+    return $tarihUyuyor && $aramaUyuyor && $durumUyuyor && $gorunumUyuyor && $musteriUyuyor && $personelUyuyor;
 }));
 
 
@@ -122,6 +143,8 @@ $sayfaParametreleri = [
     'sirala' => $siralama,
     'musteri' => $musteriFiltresi ?: '',
     'personel' => $personelFiltresi,
+    'baslangic' => $baslangicTarihi,
+    'bitis' => $bitisTarihi,
 ];
 $oncekiSayfa = '/kargolar.php?' . http_build_query($sayfaParametreleri + ['sayfa' => $sayfa - 1]);
 $sonrakiSayfa = '/kargolar.php?' . http_build_query($sayfaParametreleri + ['sayfa' => $sayfa + 1]);
@@ -216,15 +239,27 @@ require __DIR__ . '/includes/header.php';
                     </select>
                 </div>
             <?php endif; ?>
+            <div class="col-sm-6 col-md-4">
+                <label class="form-label small" for="baslangic">Teslimat başlangıç tarihi</label>
+                <input class="form-control form-control-sm" type="date" id="baslangic" name="baslangic" value="<?= e($baslangicTarihi) ?>">
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <label class="form-label small" for="bitis">Teslimat bitiş tarihi</label>
+                <input class="form-control form-control-sm" type="date" id="bitis" name="bitis" value="<?= e($bitisTarihi) ?>">
+            </div>
             <div class="col-md-2 d-flex gap-2">
                 <button class="btn btn-sm btn-primary" type="submit">Uygula</button>
                 <a class="btn btn-sm btn-outline-secondary" href="/kargolar.php">Temizle</a>
             </div>
         </form>
 
+        <?php if ($tarihHatasi): ?>
+            <p class="alert alert-danger m-3" role="alert"><?= e($tarihHatasi) ?></p>
+        <?php endif; ?>
+
         <?php if (!$kargolar): ?>
             <div class="text-center p-5">
-                <?php if ($arama !== '' || $durumFiltresi !== '' || $gorunum !== 'tumu' || $musteriFiltresi !== 0 || $personelFiltresi !== ''): ?>
+                <?php if ($arama !== '' || $durumFiltresi !== '' || $gorunum !== 'tumu' || $musteriFiltresi !== 0 || $personelFiltresi !== '' || $baslangicTarihi !== '' || $bitisTarihi !== ''): ?>
                     <h2 class="h5">Aramanıza uygun kargo bulunamadı</h2>
                     <p class="text-secondary mb-0">Farklı bir arama deneyin veya filtreleri temizleyin.</p>
                 <?php else: ?>
