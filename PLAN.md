@@ -20,7 +20,7 @@
 - [x] Bootstrap ve ortak renk değişkenleriyle açık/karanlık tema, yumuşak geçiş ve tema tercihinin saklanması.
 - [x] Kargo listesinde role göre özet kartları, kart filtreleri ve gecikme etiketi.
 - [x] Kargo listesinde filtreleri koruyan, sayfa başına 10 kayıt gösteren sayfalama.
-- [ ] Kargo detay bağlantısını kopyalama.
+- [x] Kargo listesinde ve detayında simgeli bağlantı kopyalama düğmesi.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
 - [x] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.

@@ -87,3 +87,12 @@ Test için veritabanında yönetici, personel ve iki ayrı müşteri hesabı haz
 - Aynı akışı farklı iki tarayıcıdan deneyin; kayıtların ortak ve kalıcı olduğunu doğrulayın.
 - Aynı e-postayla eşzamanlı kayıt denemesinde tek hesap oluşmalı.
 - Kargo güncellemesi başarısız olursa hareket kaydı da eklenmemeli (transaction).
+
+## Kargo bağlantısını kopyalama
+
+- Liste ve detayda takip numarasının sağındaki simgeye gelince “Kopyala” görünmeli; klavyeyle odaklanınca da okunabilmeli.
+- Düğmeye basıp bir metin alanına yapıştırın: mevcut sitenin adresi ve ilgili kargonun kimliğiyle tam bağlantı gelmeli.
+- Başarıda “Kopyalandı” görünmeli; iki saniye sonra tekrar “Kopyala” yazmalı.
+- Pano erişimi engelliyse elle kopyalanabilecek bağlantı penceresi açılmalı; yanlış başarı mesajı gösterilmemeli.
+- JavaScript kapalıyken kopyalama düğmesi gizli kalmalı.
+- Bağlantı erişim yetkisi vermez: başka müşterinin kargosu açılmamalı. Oturum kapalıysa giriş gerekir; mevcut giriş akışı kargo listesine döner.

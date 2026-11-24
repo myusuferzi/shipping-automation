@@ -429,3 +429,33 @@ h2 {
             color .3s ease, border-color .3s ease;
     }
 }
+
+/* Takip numarasının yanındaki bağlantı kopyalama düğmesi */
+.copy-button {
+    position: relative;
+    flex-shrink: 0;
+    line-height: 1;
+    padding: 6px;
+}
+
+.copy-hint {
+    position: absolute;
+    z-index: 2;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 7px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface-card);
+    color: var(--ink);
+    font-size: .75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.copy-button:hover .copy-hint,
+.copy-button:focus .copy-hint {
+    visibility: visible;
+}

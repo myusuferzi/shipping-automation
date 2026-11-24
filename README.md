@@ -12,6 +12,7 @@ Müşteri, personel ve yönetici ekranları MySQL veri katmanını kullanır. Gi
 - **Kargo personeli:** Atanmış kargoları teslimat tarihine göre listeleme; konum, durum ve teslimat bilgilerini güncelleme.
 - **Müşteri:** Kendi kargolarının detaylarını, güncel durumunu ve işlem geçmişini görüntüleme.
 - Kargo listesinde özet kartları, arama, durum filtresi ve sayfalama; geciken teslimatların gösterimi.
+- Kargo listesi ve detayında bağlantıyı kopyalama.
 - Kullanıcı kaydı, giriş ve PHP session ile rol tabanlı erişim kontrolü.
 - Üst menüden değiştirilebilen açık/karanlık tema. İlk açılışta sistem tercihi kullanılır; seçim tarayıcıda saklanır.
 
@@ -50,6 +51,7 @@ includes/
 ├── footer.php        # Ortak alt bilgi, JavaScript ve kapanışlar
 ├── gonderi-karti.php # Ana sayfa ve detayın ortak gönderi kartı
 ├── kargo-alanlari.php # Kargo oluşturma ve düzenlemenin ortak form alanları
+├── kopyala-dugmesi.php # Kargo bağlantısını kopyalama düğmesi
 ├── tema-dugmesi.php   # Güneş/ay simgeli tema anahtarı
 └── hata-icerigi.php  # 403, 404 ve 500 ekranlarının ortak içeriği
 assets/

@@ -186,9 +186,12 @@ require __DIR__ . '/includes/header.php';
                         <?php foreach ($kargolar as $kargo): ?>
                             <tr>
                                 <th scope="row">
-                                    <a class="tracking-link" href="/kargo.php?id=<?= e($kargo['id']) ?>">
-                                        <?= e($kargo['takip_no']) ?>
-                                    </a>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a class="tracking-link" href="/kargo.php?id=<?= e($kargo['id']) ?>">
+                                            <?= e($kargo['takip_no']) ?>
+                                        </a>
+                                        <?php require __DIR__ . '/includes/kopyala-dugmesi.php'; ?>
+                                    </div>
                                 </th>
                                 <td><?= e($kargo['alici_adi']) ?></td>
                                 <td>
