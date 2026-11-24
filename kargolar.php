@@ -9,6 +9,36 @@ if (!in_array($durumFiltresi, kargoDurumlari(), true)) {
     $durumFiltresi = '';
 }
 
+// Kişi filtreleri yalnızca yönetici için uygulanır.
+$musteriler = [];
+$personeller = [];
+$musteriFiltresi = 0;
+$personelFiltresi = '';
+
+if ($kullanici['rol'] === 'yonetici') {
+    foreach (kullanicilariGetir() as $hesap) {
+        if ($hesap['rol'] === 'musteri') {
+            $musteriler[] = $hesap;
+        } elseif ($hesap['rol'] === 'personel') {
+            $personeller[] = $hesap;
+        }
+    }
+
+    $musteriFiltresi = filter_var($_GET['musteri'] ?? '', FILTER_VALIDATE_INT) ?: 0;
+    if (!in_array($musteriFiltresi, array_column($musteriler, 'id'), true)) {
+        $musteriFiltresi = 0;
+    }
+
+    if (($_GET['personel'] ?? '') === 'atanmamis') {
+        $personelFiltresi = 'atanmamis';
+    } else {
+        $personelId = filter_var($_GET['personel'] ?? '', FILTER_VALIDATE_INT);
+        if (in_array($personelId, array_column($personeller, 'id'), true)) {
+            $personelFiltresi = (string) $personelId;
+        }
+    }
+}
+
 // Özetler arama sonucundan değil, kullanıcının tüm kargolarından hesaplanır.
 $bugun = date('Y-m-d');
 $gorunum = isset($_GET['gorunum']) && is_string($_GET['gorunum']) ? $_GET['gorunum'] : 'tumu';
@@ -38,10 +68,12 @@ foreach ($kargolar as $kargo) {
 }
 
 // Önce erişim kontrolü yapılır; yalnızca kullanıcının görebildiği kayıtlar aranır.
-$kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, $durumFiltresi, $gorunum, $bugun) {
+$kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, $durumFiltresi, $gorunum, $bugun, $musteriFiltresi, $personelFiltresi) {
     $aramaUyuyor = $arama === ''
         || stripos($kargo['takip_no'], $arama) !== false
-        || stripos($kargo['alici_adi'], $arama) !== false;
+        || stripos($kargo['alici_adi'], $arama) !== false
+        || stripos($kargo['konum'], $arama) !== false
+        || stripos($kargo['alici_adres'], $arama) !== false;
     $durumUyuyor = $durumFiltresi === '' || $kargo['durum'] === $durumFiltresi;
 
     $gorunumUyuyor = true;
@@ -53,7 +85,15 @@ $kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, 
         $gorunumUyuyor = $kargo['teslimat_tarihi'] < $bugun && $kargo['durum'] !== 'Teslim edildi';
     }
 
-    return $aramaUyuyor && $durumUyuyor && $gorunumUyuyor;
+    $musteriUyuyor = $musteriFiltresi === 0 || $kargo['musteri_id'] === $musteriFiltresi;
+    $personelUyuyor = true;
+    if ($personelFiltresi === 'atanmamis') {
+        $personelUyuyor = $kargo['personel_id'] === null;
+    } elseif ($personelFiltresi !== '') {
+        $personelUyuyor = $kargo['personel_id'] === (int) $personelFiltresi;
+    }
+
+    return $aramaUyuyor && $durumUyuyor && $gorunumUyuyor && $musteriUyuyor && $personelUyuyor;
 }));
 
 
@@ -80,6 +120,8 @@ $sayfaParametreleri = [
     'arama' => $arama,
     'durum' => $durumFiltresi,
     'sirala' => $siralama,
+    'musteri' => $musteriFiltresi ?: '',
+    'personel' => $personelFiltresi,
 ];
 $oncekiSayfa = '/kargolar.php?' . http_build_query($sayfaParametreleri + ['sayfa' => $sayfa - 1]);
 $sonrakiSayfa = '/kargolar.php?' . http_build_query($sayfaParametreleri + ['sayfa' => $sayfa + 1]);
@@ -113,7 +155,7 @@ require __DIR__ . '/includes/header.php';
         <?php foreach ($ozetler as $anahtar => $ozet): ?>
             <div class="col-6 col-lg-3">
                 <a class="shipment-summary <?= $gorunum === $anahtar ? 'is-active' : '' ?>"
-                    href="/kargolar.php?<?= e(http_build_query(['gorunum' => $anahtar, 'sirala' => $siralama])) ?>"
+                    href="/kargolar.php?<?= e(http_build_query(array_merge($sayfaParametreleri, ['gorunum' => $anahtar]))) ?>"
                     <?= $gorunum === $anahtar ? 'aria-current="true"' : '' ?>>
                     <span class="small"><?= e($ozet['baslik']) ?></span>
                     <strong class="fs-2"><?= e($ozet['sayi']) ?></strong>
@@ -134,7 +176,7 @@ require __DIR__ . '/includes/header.php';
         <form class="row g-3 m-0 p-3 border-bottom align-items-end" action="/kargolar.php" method="get">
             <input type="hidden" name="gorunum" value="<?= e($gorunum) ?>">
             <div class="col-md-4">
-                <label class="form-label small" for="arama">Takip numarası veya alıcı</label>
+                <label class="form-label small" for="arama">Takip no, alıcı, konum veya varış adresi</label>
                 <input class="form-control form-control-sm" type="search" id="arama" name="arama" value="<?= e($arama) ?>" placeholder="Kargo ara">
             </div>
             <div class="col-sm-6 col-md-3">
@@ -153,6 +195,27 @@ require __DIR__ . '/includes/header.php';
                     <option value="azalan" <?= $siralama === 'azalan' ? 'selected' : '' ?>>En uzak önce</option>
                 </select>
             </div>
+            <?php if ($kullanici['rol'] === 'yonetici'): ?>
+                <div class="col-sm-6 col-md-4">
+                    <label class="form-label small" for="musteri">Müşteri</label>
+                    <select class="form-select form-select-sm" id="musteri" name="musteri">
+                        <option value="">Tüm müşteriler</option>
+                        <?php foreach ($musteriler as $musteri): ?>
+                            <option value="<?= e($musteri['id']) ?>" <?= $musteriFiltresi === $musteri['id'] ? 'selected' : '' ?>><?= e($musteri['ad_soyad']) ?> (<?= e($musteri['eposta']) ?>)</option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <label class="form-label small" for="personel">Personel</label>
+                    <select class="form-select form-select-sm" id="personel" name="personel">
+                        <option value="">Tüm personeller</option>
+                        <option value="atanmamis" <?= $personelFiltresi === 'atanmamis' ? 'selected' : '' ?>>Atanmamış</option>
+                        <?php foreach ($personeller as $personel): ?>
+                            <option value="<?= e($personel['id']) ?>" <?= $personelFiltresi === (string) $personel['id'] ? 'selected' : '' ?>><?= e($personel['ad_soyad']) ?> (<?= e($personel['eposta']) ?>)</option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            <?php endif; ?>
             <div class="col-md-2 d-flex gap-2">
                 <button class="btn btn-sm btn-primary" type="submit">Uygula</button>
                 <a class="btn btn-sm btn-outline-secondary" href="/kargolar.php">Temizle</a>
@@ -161,7 +224,7 @@ require __DIR__ . '/includes/header.php';
 
         <?php if (!$kargolar): ?>
             <div class="text-center p-5">
-                <?php if ($arama !== '' || $durumFiltresi !== '' || $gorunum !== 'tumu'): ?>
+                <?php if ($arama !== '' || $durumFiltresi !== '' || $gorunum !== 'tumu' || $musteriFiltresi !== 0 || $personelFiltresi !== ''): ?>
                     <h2 class="h5">Aramanıza uygun kargo bulunamadı</h2>
                     <p class="text-secondary mb-0">Farklı bir arama deneyin veya filtreleri temizleyin.</p>
                 <?php else: ?>
