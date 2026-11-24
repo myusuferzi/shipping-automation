@@ -39,6 +39,15 @@ Test için veritabanında yönetici, personel ve iki ayrı müşteri hesabı haz
 - Seçilen grupta kayıt yoksa filtreye uygun boş sonuç mesajı görünmeli.
 - Kartlar açık/karanlık temada, dar ekranda ve klavyeyle kontrol edilmeli.
 
+## Kargo sayfalama
+
+- 10'dan fazla erişilebilir kargoyla sayfa başına en fazla 10 kayıt gösterildiğini kontrol edin.
+- Önceki/Sonraki bağlantıları kart seçimini, aramayı, durumu ve sıralamayı korumalı.
+- Sayfa değişirken toplam kayıt sayısı ve özet kartları değişmemeli.
+- Yeni filtre uygulayınca ilk sayfa açılmalı; son sayfada kalan kayıt sayısı doğru olmalı.
+- `sayfa=0`, negatif, metin veya aşırı büyük değer deneyin; geçerli sayfa gösterilmeli.
+- Boş sonuçta sayfalama görünmemeli; ilk/son sayfada ilgili gezinme düğmesi pasif olmalı.
+
 ## Personel yönetimi
 
 - Yönetici yeni personel oluşturabilmeli, ad/e-posta düzenleyebilmeli.

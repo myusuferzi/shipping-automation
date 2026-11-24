@@ -59,8 +59,30 @@ $kargolar = array_values(array_filter($kargolar, function ($kargo) use ($arama, 
 
 usort($kargolar, function ($a, $b) use ($siralama) {
     $sonuc = strcmp($a['teslimat_tarihi'], $b['teslimat_tarihi']);
+    if ($sonuc === 0) {
+        $sonuc = $a['id'] <=> $b['id'];
+    }
     return $siralama === 'artan' ? $sonuc : -$sonuc;
 });
+
+// Filtrelenmiş listeyi sıraladıktan sonra yalnızca seçilen sayfayı göster.
+$toplamKayit = count($kargolar);
+$sayfaBoyutu = 10;
+$sayfaSayisi = max(1, (int) ceil($toplamKayit / $sayfaBoyutu));
+$sayfa = filter_var($_GET['sayfa'] ?? 1, FILTER_VALIDATE_INT);
+$sayfa = max(1, min($sayfa ?: 1, $sayfaSayisi));
+$baslangic = ($sayfa - 1) * $sayfaBoyutu;
+$kargolar = array_slice($kargolar, $baslangic, $sayfaBoyutu);
+
+// Sayfa bağlantıları mevcut filtreleri korur.
+$sayfaParametreleri = [
+    'gorunum' => $gorunum,
+    'arama' => $arama,
+    'durum' => $durumFiltresi,
+    'sirala' => $siralama,
+];
+$oncekiSayfa = '/kargolar.php?' . http_build_query($sayfaParametreleri + ['sayfa' => $sayfa - 1]);
+$sonrakiSayfa = '/kargolar.php?' . http_build_query($sayfaParametreleri + ['sayfa' => $sayfa + 1]);
 
 // Bootstrap renkleri; durum metni renk olmadan da okunabilir.
 $durumRenkleri = [
@@ -104,7 +126,7 @@ require __DIR__ . '/includes/header.php';
         <div class="list-toolbar bg-success-subtle p-3 p-md-4 border-bottom d-flex flex-wrap justify-content-between align-items-center gap-3">
             <p class="mb-0 fw-semibold text-success-emphasis">
                 Gönderiler
-                <span class="badge rounded-pill bg-body text-success-emphasis border border-success-subtle ms-2"><?= count($kargolar) ?> kayıt</span>
+                <span class="badge rounded-pill bg-body text-success-emphasis border border-success-subtle ms-2"><?= e($toplamKayit) ?> kayıt</span>
             </p>
 
         </div>
@@ -188,6 +210,29 @@ require __DIR__ . '/includes/header.php';
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 border-top p-3">
+                <p class="small text-secondary mb-0">
+                    <?= e($toplamKayit) ?> kayıttan <?= e($baslangic + 1) ?>–<?= e($baslangic + count($kargolar)) ?> gösteriliyor
+                </p>
+                <?php if ($sayfaSayisi > 1): ?>
+                    <nav class="d-flex align-items-center gap-3" aria-label="Kargo sayfaları">
+                        <?php if ($sayfa > 1): ?>
+                            <a class="btn btn-sm btn-outline-secondary" href="<?= e($oncekiSayfa) ?>">Önceki</a>
+                        <?php else: ?>
+                            <span class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">Önceki</span>
+                        <?php endif; ?>
+
+                        <span class="small">Sayfa <?= e($sayfa) ?> / <?= e($sayfaSayisi) ?></span>
+
+                        <?php if ($sayfa < $sayfaSayisi): ?>
+                            <a class="btn btn-sm btn-outline-secondary" href="<?= e($sonrakiSayfa) ?>">Sonraki</a>
+                        <?php else: ?>
+                            <span class="btn btn-sm btn-outline-secondary disabled" aria-disabled="true">Sonraki</span>
+                        <?php endif; ?>
+                    </nav>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
     </section>

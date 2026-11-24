@@ -11,7 +11,7 @@ Müşteri, personel ve yönetici ekranları MySQL veri katmanını kullanır. Gi
 - **Yönetici:** Kargo oluşturma, gönderici ve alıcı bilgilerini kaydetme, personele kargo atama ve personel hesaplarını yönetme.
 - **Kargo personeli:** Atanmış kargoları teslimat tarihine göre listeleme; konum, durum ve teslimat bilgilerini güncelleme.
 - **Müşteri:** Kendi kargolarının detaylarını, güncel durumunu ve işlem geçmişini görüntüleme.
-- Kargo listesinde özet kartları, arama ve durum filtresi; geciken teslimatların gösterimi.
+- Kargo listesinde özet kartları, arama, durum filtresi ve sayfalama; geciken teslimatların gösterimi.
 - Kullanıcı kaydı, giriş ve PHP session ile rol tabanlı erişim kontrolü.
 - Üst menüden değiştirilebilen açık/karanlık tema. İlk açılışta sistem tercihi kullanılır; seçim tarayıcıda saklanır.
 

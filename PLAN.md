@@ -19,7 +19,7 @@
 - [x] Ortak başlangıçta yakalanmamış PHP hatalarını ve istisnalarını günlüğe yazıp sade 500 ekranını gösterme.
 - [x] Bootstrap ve ortak renk değişkenleriyle açık/karanlık tema, yumuşak geçiş ve tema tercihinin saklanması.
 - [x] Kargo listesinde role göre özet kartları, kart filtreleri ve gecikme etiketi.
-- [ ] Kargo listesinde sayfalama.
+- [x] Kargo listesinde filtreleri koruyan, sayfa başına 10 kayıt gösteren sayfalama.
 - [ ] Kargo detay bağlantısını kopyalama.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
 - [x] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
