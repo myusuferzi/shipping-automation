@@ -77,7 +77,10 @@ require __DIR__ . '/includes/header.php';
 <main id="icerik" class="container py-5">
     <a href="/kargolar.php">Kargo listesine dön</a>
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-4">
-        <h1 class="h2 mb-0"><?= e($kargo['takip_no']) ?></h1>
+        <div class="d-flex align-items-center gap-2">
+            <h1 class="h2 mb-0"><?= e($kargo['takip_no']) ?></h1>
+            <?php require __DIR__ . '/includes/kopyala-dugmesi.php'; ?>
+        </div>
         <?php if ($kullanici['rol'] === 'yonetici'): ?>
             <a class="btn btn-outline-success" href="/kargo-duzenle.php?id=<?= e($id) ?>">Kargo bilgilerini düzenle</a>
         <?php endif; ?>

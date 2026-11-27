@@ -3,15 +3,15 @@
     max-width: 430px;
     margin-left: auto;
     padding: 28px;
-    border: 1px solid #dce3db;
+    border: 1px solid var(--line);
     border-radius: 18px;
-    background: white;
-    box-shadow: 0 16px 40px #20332e08;
+    background: var(--surface-card);
+    box-shadow: var(--card-shadow);
 }
 
 .preview-label {
-    background: #f0f3ef;
-    color: #5b6b61;
+    background: var(--label-bg);
+    color: var(--muted);
     font-weight: 500;
 }
 
@@ -29,7 +29,7 @@
     background: #dbb184;
     color: #634a2f;
     transform: rotate(-7deg);
-    box-shadow: 10px 12px 0 #f2eee7;
+    box-shadow: 10px 12px 0 var(--parcel-shadow);
 }
 
 .parcel-illustration::before {
@@ -57,9 +57,9 @@
     display: flex;
     justify-content: space-between;
     gap: 6px;
-    border-top: 3px solid #b6c9bd;
+    border-top: 3px solid var(--track);
     padding-top: 12px;
-    color: #5e6c66;
+    color: var(--muted);
     font-size: .75rem;
 }
 
@@ -87,7 +87,7 @@
 
 .shipment-tracking .preview-stages::before {
     width: 100%;
-    background: #e1e7e2;
+    background: var(--line);
 }
 
 .shipment-tracking .preview-stages::after {
@@ -126,7 +126,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #dce3db;
+    background: var(--line);
 }
 
 .stage-complete,

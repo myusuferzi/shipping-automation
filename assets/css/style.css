@@ -1,7 +1,62 @@
 :root {
     --brand: #244f46;
-    --brand-dark: #183b34;
     --ink: #20332e;
+    --surface: #fff;
+    --surface-soft: #f5f7f3;
+    --surface-card: #fff;
+    --button-text: #fff;
+    --card-shadow: 0 16px 40px #20332e08;
+    --muted: #5e6c66;
+    --line: #dce3db;
+    --button-bg: #244f46;
+    --button-hover: #183b34;
+    --label-bg: #f0f3ef;
+    --track: #b6c9bd;
+    --parcel-shadow: #f2eee7;
+}
+
+/* Siyah zemin, belirgin kartlar ve nane yeşili vurgular. */
+[data-bs-theme="dark"] {
+    --brand: #89dbb8;
+    --ink: #e8efeb;
+    --surface: #0c100f;
+    --surface-soft: #131c18;
+    --surface-card: #1b2822;
+    --muted: #adbbb3;
+    --line: #34483d;
+    --button-bg: #89dbb8;
+    --button-hover: #a5e7cc;
+    --button-text: #102a20;
+    --card-shadow: 0 16px 40px #0003;
+    --label-bg: #293e33;
+    --track: #4b725e;
+    --parcel-shadow: #334035;
+    --bs-body-color: var(--ink);
+    --bs-body-color-rgb: 232, 239, 235;
+    --bs-body-bg: var(--surface);
+    --bs-body-bg-rgb: 12, 16, 15;
+    --bs-secondary-color: var(--muted);
+    --bs-secondary-rgb: 173, 187, 179;
+    --bs-tertiary-bg: var(--surface-soft);
+    --bs-border-color: var(--line);
+    --bs-success-bg-subtle: #1e382b;
+    --bs-success-text-emphasis: #a0e2bc;
+    --bs-success-border-subtle: #3b654c;
+    --bs-link-color: var(--brand);
+    --bs-link-color-rgb: 137, 219, 184;
+    --bs-link-hover-color: #b4efda;
+    --bs-link-hover-color-rgb: 180, 239, 218;
+}
+
+/* Bootstrap'in kenarlıklı butonlarını koyu zeminde okunaklı tut. */
+[data-bs-theme="dark"] .btn-outline-secondary {
+    --bs-btn-color: var(--muted);
+    --bs-btn-border-color: #7f9588;
+}
+
+[data-bs-theme="dark"] .btn-outline-success {
+    --bs-btn-color: var(--brand);
+    --bs-btn-border-color: #609f7f;
 }
 
 /* Genel görünüm */
@@ -10,7 +65,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     color: var(--ink);
-    background: #fff;
+    background: var(--surface);
 }
 
 html {
@@ -56,7 +111,7 @@ main {
 .skip-link {
     display: block;
     padding: 12px;
-    background: white;
+    background: var(--surface);
 }
 
 .navbar-brand {
@@ -70,8 +125,8 @@ main {
     height: 34px;
     margin-right: 5px;
     border-radius: 8px;
-    background: var(--brand);
-    color: white;
+    background: var(--button-bg);
+    color: var(--button-text);
     font-size: 20px;
 }
 
@@ -86,7 +141,7 @@ main {
 /* Ana tanıtım */
 .hero {
     padding: 80px 0;
-    background: #f5f7f3;
+    background: var(--surface-soft);
 }
 
 .eyebrow {
@@ -111,18 +166,21 @@ h1 span {
 .hero-description {
     max-width: 470px;
     margin: 24px 0 30px;
-    color: #5e6c66;
+    color: var(--muted);
     font-size: 1.1rem;
     line-height: 1.8;
 }
 
 .btn-primary {
-    --bs-btn-bg: var(--brand);
-    --bs-btn-border-color: var(--brand);
-    --bs-btn-hover-bg: var(--brand-dark);
-    --bs-btn-hover-border-color: var(--brand-dark);
-    --bs-btn-active-bg: var(--brand-dark);
-    --bs-btn-active-border-color: var(--brand-dark);
+    --bs-btn-color: var(--button-text);
+    --bs-btn-hover-color: var(--button-text);
+    --bs-btn-active-color: var(--button-text);
+    --bs-btn-bg: var(--button-bg);
+    --bs-btn-border-color: var(--button-bg);
+    --bs-btn-hover-bg: var(--button-hover);
+    --bs-btn-hover-border-color: var(--button-hover);
+    --bs-btn-active-bg: var(--button-hover);
+    --bs-btn-active-border-color: var(--button-hover);
 }
 
 .btn-primary span {
@@ -141,12 +199,12 @@ h2 {
 }
 
 .process-step {
-    border-top: 1px solid #dfe5df;
+    border-top: 1px solid var(--line);
     padding-top: 20px;
 }
 
 .step-number {
-    color: #778b80;
+    color: var(--muted);
     font-size: .85rem;
 }
 
@@ -158,7 +216,7 @@ h2 {
 
 .process-step p {
     max-width: 260px;
-    color: #66736b;
+    color: var(--muted);
     font-size: .95rem;
     line-height: 1.7;
 }
@@ -171,7 +229,7 @@ h2 {
     gap: 32px;
     padding: 32px;
     border-radius: 12px;
-    background: #f5f7f3;
+    background: var(--surface-soft);
 }
 
 .about-panel .eyebrow {
@@ -183,19 +241,59 @@ h2 {
     max-width: 440px;
     margin: 0 auto;
     padding: 28px;
-    border: 1px solid #dce3db;
+    border: 1px solid var(--line);
     border-radius: 12px;
+}
+
+/* Kartları karanlık sayfa zemininden ayır. */
+[data-bs-theme="dark"] .auth-panel,
+[data-bs-theme="dark"] .shipment-list {
+    background: var(--surface-card);
+}
+
+[data-bs-theme="dark"] .brand-dot {
+    color: #e5ad78;
+}
+
+/* Kargo özetleri */
+.shipment-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface-card);
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.shipment-summary strong {
+    color: var(--ink);
+}
+
+.shipment-summary:hover,
+.shipment-summary.is-active {
+    border-color: var(--brand);
+    background: var(--surface-soft);
+    color: var(--brand);
+}
+
+.shipment-summary:focus-visible {
+    outline: 3px solid var(--brand);
+    outline-offset: 3px;
 }
 
 /* Kargo listesi */
 .shipment-list thead {
-    background: #f5f7f3;
+    background: var(--surface-soft);
 }
 
 .shipment-list .table {
     --bs-table-bg: transparent;
-    --bs-table-hover-bg: #f5f7f3;
-    --bs-table-border-color: #e6ebe6;
+    --bs-table-hover-bg: var(--surface-soft);
+    --bs-table-border-color: var(--line);
 }
 
 .shipment-list th,
@@ -204,7 +302,7 @@ h2 {
 }
 
 .shipment-list thead th {
-    color: #5e6c66;
+    color: var(--muted);
     font-size: .8rem;
     font-weight: 600;
     white-space: nowrap;
@@ -244,4 +342,120 @@ h2 {
         scroll-behavior: auto;
     }
 
+}
+
+/* Yalnızca renkler geçiş yapar; menü ve gönderi animasyonları korunur. */
+@media (prefers-reduced-motion: no-preference) {
+    body,
+    header,
+    footer,
+    main *,
+    main *::before,
+    main *::after,
+    .navbar-brand,
+    .nav-link,
+    .brand-mark,
+    header .btn {
+        transition: background-color .3s ease, color .3s ease,
+            border-color .3s ease, box-shadow .3s ease;
+    }
+}
+
+/* Tema anahtarı: simgeler sabit kalır, yuvarlak düğme kayar. */
+.theme-switch {
+    position: relative;
+    width: 72px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: #e5ebe5;
+    color: #244f46;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.theme-switch::before {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px #0002;
+    content: '';
+}
+
+.theme-switch svg {
+    position: absolute;
+    top: 9px;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.theme-sun {
+    left: 9px;
+}
+
+.theme-moon {
+    right: 9px;
+}
+
+[data-bs-theme="dark"] .theme-switch {
+    background: #202923;
+    color: #c4d8cd;
+}
+
+[data-bs-theme="dark"] .theme-switch::before {
+    background: #3b5145;
+    transform: translateX(34px);
+}
+
+.theme-switch:focus-visible {
+    outline: 3px solid var(--brand);
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .theme-switch,
+    .theme-switch::before {
+        transition: transform .3s ease, background-color .3s ease,
+            color .3s ease, border-color .3s ease;
+    }
+}
+
+/* Takip numarasının yanındaki bağlantı kopyalama düğmesi */
+.copy-button {
+    position: relative;
+    flex-shrink: 0;
+    line-height: 1;
+    padding: 6px;
+}
+
+.copy-hint {
+    position: absolute;
+    z-index: 2;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 7px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface-card);
+    color: var(--ink);
+    font-size: .75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.copy-button:hover .copy-hint,
+.copy-button:focus .copy-hint {
+    visibility: visible;
 }

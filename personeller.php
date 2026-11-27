@@ -59,6 +59,7 @@ require __DIR__ . '/includes/header.php';
                         <td><?= $personel['aktif'] ? 'Aktif' : 'Pasif' ?></td>
                         <td>
                             <div class="d-flex flex-wrap gap-2">
+                                <a class="btn btn-sm btn-outline-secondary" href="/kargolar.php?personel=<?= e($personel['id']) ?>">Kargolarını gör</a>
                                 <a class="btn btn-sm btn-outline-success" href="/personel-duzenle.php?id=<?= e($personel['id']) ?>">Düzenle</a>
                                 <form method="post" action="/personeller.php"
                                     data-onay="Personelin hesap durumunu değiştirmek istediğinize emin misiniz?">

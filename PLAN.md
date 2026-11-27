@@ -16,7 +16,13 @@
 - [x] Menüde aktif bölüm vurgusu ve kargo oluşturma alan sınırlarının kontrolü.
 - [x] Ayrı JavaScript dosyasında şifre gösterme, şifre tekrarı kontrolü ve personel durum değişikliği onayı.
 - [x] 403 ekranını köke taşıma ve 403/404/500 için ortak hata içeriği.
-- [ ] Beklenmeyen sunucu hatalarını sade 500 ekranına bağlama.
+- [x] Ortak başlangıçta yakalanmamış PHP hatalarını ve istisnalarını günlüğe yazıp sade 500 ekranını gösterme.
+- [x] Bootstrap ve ortak renk değişkenleriyle açık/karanlık tema, yumuşak geçiş ve tema tercihinin saklanması.
+- [x] Kargo listesinde role göre özet kartları, kart filtreleri ve gecikme etiketi.
+- [x] Planlanan teslimat tarihi için başlangıç/bitiş aralığı filtresi.
+- [x] Yönetici için müşteri/personel filtreleri, atanmamış kargolar ve konum/adres araması.
+- [x] Kargo listesinde filtreleri koruyan, sayfa başına 10 kayıt gösteren sayfalama.
+- [x] Kargo listesinde ve detayında simgeli bağlantı kopyalama düğmesi.
 - [ ] Tarayıcıda ekranların ve mobil görünümün birlikte incelenmesi.
 - [x] MySQL tabloları ve veri fonksiyonlarının SQL ile uygulanması (veritabanı tarafı).
 - [ ] Gerçek veritabanında çok kullanıcılı akışların test edilmesi.

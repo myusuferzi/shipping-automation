@@ -14,6 +14,7 @@ unset($_SESSION['bildirim']);
         <meta name="description" content="Kargo takip ve yönetim otomasyonu: gönderilerinizi ve teslimat sürecini tek yerden takip edin.">
         <title><?= htmlspecialchars($sayfaBasligi, ENT_QUOTES, 'UTF-8') ?> | Kargo</title>
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+        <script src="/assets/js/tema.js"></script>
         <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="/assets/css/gonderi-karti.css">
@@ -22,7 +23,7 @@ unset($_SESSION['bildirim']);
         <a class="visually-hidden-focusable skip-link" href="#icerik">İçeriğe geç</a>
 
         <!-- Üst menü -->
-        <header class="border-bottom bg-white">
+        <header class="border-bottom bg-body">
             <nav class="navbar navbar-expand-sm py-3" aria-label="Ana menü">
                 <div class="container">
                     <a class="navbar-brand fw-bold" href="/index.php">
@@ -79,6 +80,9 @@ unset($_SESSION['bildirim']);
                                         <?= $aktifSayfa === 'register' ? 'aria-current="page"' : '' ?> href="/register.php">Kayıt ol</a>
                                 </li>
                             <?php endif; ?>
+                            <li class="nav-item">
+                                <?php require __DIR__ . '/tema-dugmesi.php'; ?>
+                            </li>
                         </ul>
                     </div>
                 </div>

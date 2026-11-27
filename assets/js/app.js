@@ -60,3 +60,34 @@ onayFormlari.forEach(function (form) {
         }
     });
 });
+
+// Kargo bağlantısını mevcut sitenin adresiyle birlikte kopyala.
+const kopyalaButonlari = document.querySelectorAll('[data-kargo-baglantisi]');
+
+kopyalaButonlari.forEach(function (buton) {
+    const ipucu = buton.querySelector('.copy-hint');
+    const sonuc = buton.querySelector('[data-kopyala-sonucu]');
+    let zamanlayici;
+    buton.hidden = false;
+
+    buton.addEventListener('click', async function () {
+        const baglanti = new URL(buton.dataset.kargoBaglantisi, window.location.origin).href;
+        clearTimeout(zamanlayici);
+
+        try {
+            await navigator.clipboard.writeText(baglanti);
+            ipucu.textContent = 'Kopyalandı';
+            sonuc.textContent = 'Kargo bağlantısı kopyalandı.';
+        } catch {
+            // Pano erişimi yoksa bağlantı elle kopyalanabilir.
+            window.prompt('Bağlantıyı kopyalayın:', baglanti);
+            ipucu.textContent = 'Kopyala';
+            sonuc.textContent = 'Otomatik kopyalama yapılamadı.';
+        }
+
+        zamanlayici = setTimeout(function () {
+            ipucu.textContent = 'Kopyala';
+            sonuc.textContent = '';
+        }, 2000);
+    });
+});
