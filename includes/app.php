@@ -52,7 +52,11 @@ function bildirimEkle($mesaj)
 
 function mevcutKullanici()
 {
-    return kullaniciGetir($_SESSION['kullanici_id'] ?? 0);
+    if (empty($_SESSION['kullanici_id'])) {
+        return null;
+    }
+
+    return kullaniciGetir($_SESSION['kullanici_id']);
 }
 
 // Hem rol kontrolü hem de geçersiz form gönderimi aynı ekranı kullanır.
